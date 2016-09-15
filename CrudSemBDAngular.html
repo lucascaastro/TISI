@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">
+		</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<meta charset="utf-8"/>
+	</head>
+	<body ng-app="crudSemBD" ng-controller="controlador">
+		<div class="container-fluid">
+			<h2> Controle de Produtos </h2>
+			<table class="table"> <!-- tabela -->
+				<tr> <!-- table row (nova linha)--> 
+					<!-- table header (célula de cabeçalho)-->
+					<th> Código </th>
+					<th> Nome </th> 
+					<th> Qtde </th> 
+					<th> Valor </th> 
+					<th> Opções </th>
+				</tr>
+				<tr ng-repeat="produto in listaProdutos">
+					<td> {{produto.codigo}} </td> 
+					<td> {{produto.nome}} </td> 
+					<td> {{produto.	qtde}} </td> 
+					<td> {{produto.valor}} </td>
+					<td> 
+						<a href="#" ng-click="remover(produto.codigo)"> Remover </a> 
+						||
+						<a href="#" ng-click="atualizar(produto.codigo)"> Atualizar </a> 
+					</td>
+				</tr>
+			</table>
+			<h2> Informações do Produto </h2>
+				Código <input type="text" class="form-control" ng-model="codigo"/>
+			<br/>Nome <input type="text" class="form-control" ng-model="nome"/>	
+			<br/>Qtde <input type="number" class="form-control" ng-model="qtde"/>	
+			<br/>Valor <input type="number" class="form-control" ng-model="valor"/>	
+			<br/>
+			<button type="button" class="btn btn-info" ng-click="inserir()"> Inserir </button>
+			<button type="button" class="btn btn-info" ng-click="alterar()"> Atualizar </button>
+			<script>
+				var app = angular.module('crudSemBD', []);
+				app.controller('controlador', 
+					function($scope) {
+						// criar uma estrutura de dados JSON
+						$scope.listaProdutos = [
+							{codigo:'C1', nome: 'N1', qtde:'1', valor:'1'},
+							{codigo:'C2', nome: 'N2', qtde:'2', valor:'2'},
+							{codigo:'C3', nome: 'N3', qtde:'3', valor:'3'},
+							{codigo:'C4', nome: 'N4', qtde:'4', valor:'4'}
+							];
+						// insere na lista
+						$scope.inserir = function(){
+							// adiciona novo produto em listaProdutos
+							$scope.listaProdutos.push(
+								{codigo: $scope.codigo,
+								 nome: $scope.nome,
+								 qtde: $scope.qtde,
+								 valor: $scope.valor
+								}
+							);
+						}
+						// remove da lista
+						$scope.remover = function(codigo){
+							var resposta = confirm("Confirma a exclusão deste elemento?");
+							if (resposta == true){
+								var posicao = retornaIndice(codigo);
+								$scope.listaProdutos.splice(posicao, 1);
+							}
+						};
+						// atualiza um produto
+						$scope.atualizar = function(codigo){
+							var posicao = retornaIndice(codigo);
+							$scope.codigo = $scope.listaProdutos[posicao].codigo;
+							$scope.nome = $scope.listaProdutos[posicao].nome;
+							$scope.qtde = parseFloat($scope.listaProdutos[posicao].qtde);
+							$scope.valor = parseFloat($scope.listaProdutos[posicao].valor);
+						}
+						// editar o produto
+						$scope.alterar = function(){
+							// recupera o índice do produto para alterar
+							var indice = retornaIndice($scope.codigo);
+							if (indice != -1){
+								$scope.listaProdutos[indice].nome = $scope.nome;
+								$scope.listaProdutos[indice].qtde = $scope.qtde;
+								$scope.listaProdutos[indice].valor = $scope.valor;
+							}
+						}
+						// função que retorna a posição de um produto pelo seu código 
+						function retornaIndice(codigo){
+							var i;
+							for (i=0;i<$scope.listaProdutos.length;i++){
+									if ($scope.listaProdutos[i].codigo == codigo){
+										return i; // retorna posição do produto desejado
+									}
+							}
+							return -1;
+						}
+						
+					}
+				);
+			</script>
+			</div>
+	</body>
+</html>
