@@ -12,7 +12,23 @@ var jsonParser = bodyParser.json()
 
 // cria um parser application/x-www-form-urlencoded
 var urlencodedParser = bodyParser.urlencoded({extended:true})
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize('postgres://root:92528109@localhost:5432/TISI')
+//var sequelize = new Sequelize('postgres://user:pass@example.com:5432/dbname');
 
+//banco de dados 
+var User = sequelize.define('tb_usuarios', {
+	nome:{
+		type: Sequelize.STRING	
+	},
+	sobrenome: Sequelize.STRING
+});
+User.sync({force:true})
+	.then(function(){
+		nome:'Lucas',
+		sobrenome:'Castro'
+	});
+});
 
 // rota via POST
 app.post('/infopost', urlencodedParser, function(req, res){
@@ -27,9 +43,10 @@ app.post('/infopost', urlencodedParser, function(req, res){
 // rota via GET 
 app.get('/', function (req, res) {                                  
    res.send('<html><body> id: '+ req.param('id') + '<br/> Nome Projeto: ' + req.param('nomeprojeto') +  '<br/>' + 
-	   'Usuario: ' +  req.param('usuario') + '<br/>' + 'Data Inicio: ' + req.param('data_inicio') + '<br/> ' + 
+	   'Usuario: ' +  req.param('usuario') + '<br/>' + 'Data Inicio: ' + req.param('data_entregainicio') + '<br/> ' + 
 	   'Data Entrega: ' + req.param('data_entrega') + '<br/>' + 'Data Termino: ' + req.param('data_termino') + '</body></html>')
  }) 
+
 
 
 app.listen(3000)
