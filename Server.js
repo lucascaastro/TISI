@@ -55,3 +55,98 @@ app.post('/create', urlencodedParser, function (req, res) {
   });
 });
 
+// Retrieve
+app.get('/retrieve', function(req, res) {
+
+	var saida = "<table border=\"1\">";
+
+    pool.connect(function(err, client, done) {
+
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+         client.query('SELECT * FROM tb_projetos ORDER BY id_projeto ASC', function(err,result){
+
+	   done();
+
+	   if(err){
+		return console.error('error running query', err);
+	   }
+
+	   for( i=0; i < result.rows.length; i++){
+		saida = saida + "<tr><td>" + result.rows[i].id_projeto + "</td><td>"+ result.rows[i].id_usuario + "</td><td>" + result.rows[i].descricao + "</td><td" + result.rows[i].data_inicio + "</td><td> " + result.rows[i].data_entrega + "</td><td>" + result.rows[i].data_termino + "</td></tr>";
+	   }
+
+	   saida = saida + "</table>";
+	   res.send(saida);
+
+        });
+
+    });
+
+});
+
+app.post('/update', urlencodedParser, function(req, res) {
+
+
+    var id = req.body.id_projeto;
+
+    var data = { nome: req.body.nomeprojeto, descricao: req.body.descricao, data_inicio: req.body.data_inicio, data_entrega:req.body.data_entrega, data_termino: req.body.data_termino};
+
+    // Get a Postgres client from the connection pool
+    pool.connect(function(err, client, done) {
+        // Handle connection errors
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).send(json({ success: false, data: err}));
+        }
+
+	client.query('update tb_projetos set nome = \'' + data.nome + '\', descricao = \'' + data.descricao + '\', data_inicio = \'' + data.data_inicio + '\', data_entrega = \'' + data.data_entrega + '\', data_termino = \'' + data.data_termino +'\' where id_projeto = ' + id,  function(err, result){
+
+	  done();
+
+	  if(err){
+		return console.error('error running query', err);
+	  } 
+
+	  res.send("Projeto atualizado");
+	});
+      });
+});
+
+
+app.post('/delete', urlencodedParser, function(req, res) {
+
+
+    // Grab data from the URL parameters
+    var id = req.body.id_projeto;
+
+    // Get a Postgres client from the connection pool
+    pool.connect(function(err, client, done) {
+
+        // Handle connection errors
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+        client.query('DELETE FROM tb_projetos WHERE id_projeto = ' + id, function(err, result) {
+
+	  done();
+
+	  if( err ){
+		return console.error('error running query', err);
+	  }
+
+	  res.send("Projeto removido com sucesso");
+
+	});
+
+     });
+});
+
