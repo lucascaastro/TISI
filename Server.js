@@ -337,6 +337,8 @@ app.post('/updateSubTarefa', urlencodedParser, function(req, res) {
 
     var data = { nome: req.body.nome, descricao: req.body.descricao, data_inicio: req.body.data_inicio, data_entrega:req.body.data_entrega, data_termino: req.body.data_termino};
 
+
+    // Get a Postgres client from the connection pool
     pool.connect(function(err, client, done) {
         // Handle connection errors
         if(err) {
@@ -363,6 +365,8 @@ app.post('/updateSubTarefa', urlencodedParser, function(req, res) {
 app.post('/deleteSubTarefa', urlencodedParser, function(req, res) {
 
     var id = req.body.id_subtarefa;
+
+    var id = req.body.id_projeto;
 
     // Get a Postgres client from the connection pool
     pool.connect(function(err, client, done) {
