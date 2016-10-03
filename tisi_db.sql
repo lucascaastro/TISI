@@ -40,7 +40,8 @@ constraint fk_projetos_id_usuario foreign key(id_usuario)
 create table tb_tarefas(
 id_tarefa integer,
 id_projeto integer,
-id_usario integer,
+id_usuario integer,
+nome varchar(20),
 descricao varchar(100),
 data_inicio date,
 data_entrega date,
@@ -59,6 +60,7 @@ constraint fk_tarefas_id_usuario foreign key(id_usario)
 create table tb_subtarefas(
 id_subtarefa integer,
 id_tarefa integer,
+nome varchar(20),
 descricao varchar(100),
 data_inicio date,
 data_entrega date,
