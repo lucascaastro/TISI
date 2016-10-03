@@ -55,11 +55,12 @@
 			<br/>
 
 			<form 
-				method="post" action="http://localhost:3000/infopost">                   
-
-                                <br/>ID: <input type="text" name="id"/>           
-                                <br/>Nome Projeto: <input type="text" name="nomeprojeto"/>           
-                                <br/>Usuário: <input type="text" name="usuario"/>           
+				method="post" action="http://localhost:3000/create">                   
+                                <br/>ID: <input type="number" name="id_projeto"/>           
+                                <br/>ID_Usuario: <input type="number" name="id_usuario"/>           
+                                <br/>Nome: <input type="text" name="nomeprojeto"/>           
+                                <br/>Objetivo: <input type="text" name="objetivos"/>           
+                                <br/>Descrição: <input type="text" name="descricao"/>           
                                 <br/>Data Inicio: <input type="text" name="data_inicio"/>           
                                 <br/>Data Entrega: <input type="text" name="data_entrega"/>           
                                 <br/>Data Termino: <input type="text" name="data_termino"/>           
@@ -68,14 +69,8 @@
 			</form>
 
 			<form 
-				method="get" action="http://localhost:3000">                   
-
-                                <br/>ID: <input type="text" name="id"/>           
-                                <br/>Nome Projeto: <input type="text" name="nomeprojeto"/>           
-                                <br/>Usuário: <input type="text" name="usuario"/>           
-                                <br/>Data Inicio: <input type="text" name="data_inicio"/>           
-                                <br/>Data Entrega: <input type="text" name="data_entrega"/>           
-                                <br/>Data Termino: <input type="text" name="data_termino"/>           
+				method="get" action="http://localhost:3000/delete">                   
+                                <br/>Nome: <input type="text" name="nomeprojeto"/>           
 				<br/>
                            <input type="submit"/>
 			</form>
