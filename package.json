@@ -1,7 +1,7 @@
 {
-  "name": "projeto",
+  "name": "tisi",
   "version": "1.0.0",
-  "description": "",
+  "description": "tisi",
   "main": "index.js",
   "dependencies": {
     "express": "^4.14.0",
@@ -10,10 +10,21 @@
     "pug": "^2.0.0-beta6",
     "sequelize": "^3.24.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "lite-server": "^2.2.2"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "Lucas Castro",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucascaastro/TISI.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lucascaastro/TISI/issues"
+  },
+  "homepage": "https://github.com/lucascaastro/TISI#readme"
 }
