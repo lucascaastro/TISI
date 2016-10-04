@@ -1,1 +1,5 @@
 /node_modules
+.gitignore
+curl_projeto.sh
+curl_tarefa.sh
+curl_subtarefa.sh
