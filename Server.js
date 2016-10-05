@@ -12,15 +12,15 @@ var jsonParser = bodyParser.json();
 
 // cria um parser application/x-www-form-urlencoded
 var urlencodedParser = bodyParser.urlencoded({extended:true})
-<<<<<<< HEAD
+
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize('postgres://root:92528109@localhost:5432/TISI')
 //var sequelize = new Sequelize('postgres://user:pass@example.com:5432/dbname');
 
-//banco de dados 
+//banco de dados
 var User = sequelize.define('tb_usuarios', {
 	nome:{
-		type: Sequelize.STRING	
+		type: Sequelize.STRING
 	},
 	sobrenome: Sequelize.STRING
 });
@@ -38,20 +38,20 @@ var pg = require('pg');
 app.listen(3000)
 
 <<<<<<< HEAD
-// rota via GET 
-app.get('/', function (req, res) {                                  
-   res.send('<html><body> id: '+ req.param('id') + '<br/> Nome Projeto: ' + req.param('nomeprojeto') +  '<br/>' + 
-	   'Usuario: ' +  req.param('usuario') + '<br/>' + 'Data Inicio: ' + req.param('data_entregainicio') + '<br/> ' + 
+// rota via GET
+app.get('/', function (req, res) {
+   res.send('<html><body> id: '+ req.param('id') + '<br/> Nome Projeto: ' + req.param('nomeprojeto') +  '<br/>' +
+	   'Usuario: ' +  req.param('usuario') + '<br/>' + 'Data Inicio: ' + req.param('data_entregainicio') + '<br/> ' +
 	   'Data Entrega: ' + req.param('data_entrega') + '<br/>' + 'Data Termino: ' + req.param('data_termino') + '</body></html>')
- }) 
+ })
 =======
 var config = {
-  user: 'postgres', //env var: PGUSER 
-  database: 'TISI', //env var: PGDATABASE 
-  password: '123456', //env var: PGPASSWORD 
-  port: 5432, //env var: PGPORT 
-  max: 10, // max number of clients in the pool 
-  idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed 
+  user: 'postgres', //env var: PGUSER
+  database: 'TISI', //env var: PGDATABASE
+  password: '123456', //env var: PGPASSWORD
+  port: 5432, //env var: PGPORT
+  max: 10, // max number of clients in the pool
+  idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
 };
 >>>>>>> cc2045f82c1d6cd69d76dbdda653789ae4ded4fe
 
@@ -60,11 +60,11 @@ var pool = new pg.Pool(config);
 
 
 // CRUD Projetos
-// Create 
+// Create
 app.post('/createProjeto', urlencodedParser, function (req, res) {
-	
-	  var data = { id_projeto: req.body.id_projeto, id_usuario: req.body.id_usuario, nome: req.body.nome, 
-		      objetivos: req.body.objetivos, descricao: req.body.descricao, data_inicio: req.body.data_inicio, data_entrega: req.body.data_entrega, 
+
+	  var data = { id_projeto: req.body.id_projeto, id_usuario: req.body.id_usuario, nome: req.body.nome,
+		      objetivos: req.body.objetivos, descricao: req.body.descricao, data_inicio: req.body.data_inicio, data_entrega: req.body.data_entrega,
 		      data_termino: req.body.data_termino }
 
 	  pool.connect(function(err, client, done) {
@@ -73,7 +73,7 @@ app.post('/createProjeto', urlencodedParser, function (req, res) {
 	    return console.error('error fetching client from pool', err);
 	  }
 
-	  client.query( "INSERT INTO tb_projetos(id_projeto, id_usuario, nome, descricao, data_inicio, data_entrega, data_termino) values($1,$2,$3,$4,$5,$6,$7)", 
+	  client.query( "INSERT INTO tb_projetos(id_projeto, id_usuario, nome, descricao, data_inicio, data_entrega, data_termino) values($1,$2,$3,$4,$5,$6,$7)",
 			[data.id_projeto, data.id_usuario, data.nome, data.descricao, data.data_inicio, data.data_entrega, data.data_termino])
 
 	  done();
@@ -141,7 +141,7 @@ app.post('/updateProjeto', urlencodedParser, function(req, res) {
 
 	  if(err){
 		return console.error('error running query', err);
-	  } 
+	  }
 
 	  res.send("Projeto Atualizado com Sucesso");
 	});
@@ -188,11 +188,11 @@ app.listen(3000)
 >>>>>>> cc2045f82c1d6cd69d76dbdda653789ae4ded4fe
 =======
 // CRUD Tarefas
-// Create 
+// Create
 app.post('/createTarefa', urlencodedParser, function (req, res) {
-	
-	  var data = { id_tarefa: req.body.id_tarefa, id_projeto: req.body.id_projeto, id_usuario: req.body.id_usuario, nome: req.body.nome, 
-		      descricao: req.body.descricao, data_inicio: req.body.data_inicio, data_entrega: req.body.data_entrega, 
+
+	  var data = { id_tarefa: req.body.id_tarefa, id_projeto: req.body.id_projeto, id_usuario: req.body.id_usuario, nome: req.body.nome,
+		      descricao: req.body.descricao, data_inicio: req.body.data_inicio, data_entrega: req.body.data_entrega,
 		      data_termino: req.body.data_termino }
 
 	  pool.connect(function(err, client, done) {
@@ -201,7 +201,7 @@ app.post('/createTarefa', urlencodedParser, function (req, res) {
 	    return console.error('error fetching client from pool', err);
 	  }
 
-	  client.query( "INSERT INTO tb_tarefas(id_tarefa, id_projeto, id_usuario, nome, descricao, data_inicio, data_entrega, data_termino) values($1,$2,$3,$4,$5,$6,$7,$8)", 
+	  client.query( "INSERT INTO tb_tarefas(id_tarefa, id_projeto, id_usuario, nome, descricao, data_inicio, data_entrega, data_termino) values($1,$2,$3,$4,$5,$6,$7,$8)",
 			[data.id_tarefa, data.id_projeto, data.id_usuario, data.nome, data.descricao, data.data_inicio, data.data_entrega, data.data_termino])
 
 	  done();
@@ -262,14 +262,14 @@ app.post('/updateTarefa', urlencodedParser, function(req, res) {
           return res.status(500).send(json({ success: false, data: err}));
         }
 
-	client.query('update tb_tarefas set nome = \'' + data.nome + '\', descricao = \'' + data.descricao + '\', data_inicio = \'' + data.data_inicio + '\', data_entrega = \'' + data.data_entrega + '\', data_termino = \'' + data.data_termino +'\' where id_tarefa = ' + id,  
+	client.query('update tb_tarefas set nome = \'' + data.nome + '\', descricao = \'' + data.descricao + '\', data_inicio = \'' + data.data_inicio + '\', data_entrega = \'' + data.data_entrega + '\', data_termino = \'' + data.data_termino +'\' where id_tarefa = ' + id,
 	  function(err, result){
 
 	  done();
 
 	  if(err){
 		return console.error('error running query', err);
-	  } 
+	  }
 
 	  res.send("Tarefa atualizada");
 	});
@@ -307,11 +307,11 @@ app.post('/deleteTarefa', urlencodedParser, function(req, res) {
 });
 
 //CRUD Subtarefas
-// Create 
+// Create
 app.post('/createSubTarefa', urlencodedParser, function (req, res) {
-	
-	  var data = { id_subtarefa: req.body.id_subtarefa, id_tarefa: req.body.id_tarefa, nome: req.body.nome, 
-		      descricao: req.body.descricao, data_inicio: req.body.data_inicio, data_entrega: req.body.data_entrega, 
+
+	  var data = { id_subtarefa: req.body.id_subtarefa, id_tarefa: req.body.id_tarefa, nome: req.body.nome,
+		      descricao: req.body.descricao, data_inicio: req.body.data_inicio, data_entrega: req.body.data_entrega,
 		      data_termino: req.body.data_termino }
 
 	  pool.connect(function(err, client, done) {
@@ -320,7 +320,7 @@ app.post('/createSubTarefa', urlencodedParser, function (req, res) {
 	    return console.error('error fetching client from pool', err);
 	  }
 
-	  client.query( "INSERT INTO tb_subtarefas(id_subtarefa, id_tarefa, nome, descricao, data_inicio, data_entrega, data_termino) values($1,$2,$3,$4,$5,$6,$7)", 
+	  client.query( "INSERT INTO tb_subtarefas(id_subtarefa, id_tarefa, nome, descricao, data_inicio, data_entrega, data_termino) values($1,$2,$3,$4,$5,$6,$7)",
 			[data.id_subtarefa, data.id_tarefa, data.nome, data.descricao, data.data_inicio, data.data_entrega, data.data_termino])
 
 	  done();
@@ -383,14 +383,14 @@ app.post('/updateSubTarefa', urlencodedParser, function(req, res) {
           return res.status(500).send(json({ success: false, data: err}));
         }
 
-	client.query('update tb_subtarefas set nome = \'' + data.nome + '\', descricao = \'' + data.descricao + '\', data_inicio = \'' + data.data_inicio + '\', data_entrega = \'' + data.data_entrega + '\', data_termino = \'' + data.data_termino +'\' where id_subtarefa = ' + id,  
+	client.query('update tb_subtarefas set nome = \'' + data.nome + '\', descricao = \'' + data.descricao + '\', data_inicio = \'' + data.data_inicio + '\', data_entrega = \'' + data.data_entrega + '\', data_termino = \'' + data.data_termino +'\' where id_subtarefa = ' + id,
 	  function(err, result){
 
 	  done();
 
 	  if(err){
 		return console.error('error running query', err);
-	  } 
+	  }
 
 	  res.send("Subtarefa atualizado");
 	});
