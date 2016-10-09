@@ -3,3 +3,4 @@
 curl_projeto.sh
 curl_tarefa.sh
 curl_subtarefa.sh
+curl_usuario.sh
