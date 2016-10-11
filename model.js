@@ -35,7 +35,7 @@ app.post('/createProjeto', urlencodedParser, function (req, res) {
 
 	  var data = { id_projeto: req.body.id_projeto, id_usuario: req.body.id_usuario, nome: req.body.nome,
 		      objetivos: req.body.objetivos, descricao: req.body.descricao, data_inicio: req.body.data_inicio, data_entrega: req.body.data_entrega,
-		      data_termino: req.body.data_termino }
+		       }
 
 	  pool.connect(function(err, client, done) {
 
@@ -43,8 +43,8 @@ app.post('/createProjeto', urlencodedParser, function (req, res) {
 	    return console.error('error fetching client from pool', err);
 	  }
 
-	  client.query( "INSERT INTO tb_projetos(id_projeto, id_usuario, nome, descricao, data_inicio, data_entrega, data_termino) values($1,$2,$3,$4,$5,$6,$7)",
-			[data.id_projeto, data.id_usuario, data.nome, data.descricao, data.data_inicio, data.data_entrega, data.data_termino])
+	  client.query( "INSERT INTO tb_projetos( id_usuario, nome, descricao, data_inicio, data_entrega) values($1,$2,$3,$4,$5)",
+			[ data.id_usuario, data.nome, data.descricao, data.data_inicio, data.data_entrega ])
 
 	  done();
 
@@ -58,8 +58,6 @@ app.post('/createProjeto', urlencodedParser, function (req, res) {
 // Retrieve
 app.get('/retrieveProjeto', function(req, res) {
 
-	var saida = "<table border=\"1\">";
-
     pool.connect(function(err, client, done) {
 
         if(err) {
@@ -70,19 +68,14 @@ app.get('/retrieveProjeto', function(req, res) {
 
          client.query('SELECT * FROM tb_projetos ORDER BY id_projeto ASC', function(err,result){
 
-	   done();
+            done();
 
-	   if(err){
-		return console.error('error running query', err);
-	   }
+            if(err){
+                return console.error('error running query', err);
+            }
 
-	   for( i=0; i < result.rows.length; i++){
-		saida = saida + "<tr><td>" + result.rows[i].id_projeto + "</td><td>"+ result.rows[i].id_usuario + "</td><td>" + result.rows[i].descricao + "</td><td" + result.rows[i].data_inicio + "</td><td> " + result.rows[i].data_entrega + "</td><td>" + result.rows[i].data_termino + "</td></tr>";
-	   }
-
-	   saida = saida + "</table>";
-	   res.send(saida);
-
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.json(result.rows);
         });
 
     });
@@ -121,7 +114,7 @@ app.put('/updateProjeto', urlencodedParser, function(req, res) {
 
 
 // Delete
-app.post('/deleteProjeto', urlencodedParser, function(req, res) {
+app.delete('/deleteProjeto', urlencodedParser, function(req, res) {
 
 
     // Grab data from the URL parameters
@@ -157,9 +150,9 @@ app.post('/deleteProjeto', urlencodedParser, function(req, res) {
 // Create
 app.post('/createTarefa', urlencodedParser, function (req, res) {
 
-	  var data = { id_tarefa: req.body.id_tarefa, id_projeto: req.body.id_projeto, id_usuario: req.body.id_usuario, nome: req.body.nome,
+	  var data = {  id_projeto: req.body.id_projeto, id_usuario: req.body.id_usuario, nome: req.body.nome,
 		      descricao: req.body.descricao, data_inicio: req.body.data_inicio, data_entrega: req.body.data_entrega,
-		      data_termino: req.body.data_termino }
+		       }
 
 	  pool.connect(function(err, client, done) {
 
@@ -167,8 +160,8 @@ app.post('/createTarefa', urlencodedParser, function (req, res) {
 	    return console.error('error fetching client from pool', err);
 	  }
 
-	  client.query( "INSERT INTO tb_tarefas(id_tarefa, id_projeto, id_usuario, nome, descricao, data_inicio, data_entrega, data_termino) values($1,$2,$3,$4,$5,$6,$7,$8)",
-			[data.id_tarefa, data.id_projeto, data.id_usuario, data.nome, data.descricao, data.data_inicio, data.data_entrega, data.data_termino])
+	  client.query( "INSERT INTO tb_tarefas( id_projeto, id_usuario, nome, descricao, data_inicio, data_entrega) values($1,$2,$3,$4,$5,$6)",
+			[data.id_projeto, data.id_usuario, data.nome, data.descricao, data.data_inicio, data.data_entrega])
 
 	  done();
 
@@ -182,7 +175,6 @@ app.post('/createTarefa', urlencodedParser, function (req, res) {
 // Retrieve
 app.get('/retrieveTarefa', function(req, res) {
 
-	var saida = "<table border=\"1\">";
 
     pool.connect(function(err, client, done) {
 
@@ -194,18 +186,14 @@ app.get('/retrieveTarefa', function(req, res) {
 
          client.query('SELECT * FROM tb_tarefas ORDER BY id_tarefa ASC', function(err,result){
 
-	   done();
+            done();
 
-	   if(err){
-		return console.error('error running query', err);
-	   }
+            if(err){
+                return console.error('error running query', err);
+            }
 
-	   for( i=0; i < result.rows.length; i++){
-		saida = saida + "<tr><td>" + result.rows[i].id_tarefa + "</td><td>"+ result.rows[i].id_projeto + "</td><td>" + result.rows[i].id_usuario + "</td><td" + result.rows[i].descricao + "</td><td> " + result.rows[i].data_inicio + "</td><td>" + result.rows[i].data_entrega + "</td><td>" + result.rows[i].data_termino + "</td></tr>";
-	   }
-
-	   saida = saida + "</table>";
-	   res.send(saida);
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.json(result.rows);
 
         });
 
@@ -245,7 +233,7 @@ app.put('/updateTarefa', urlencodedParser, function(req, res) {
 
 
 // Delete
-app.post('/deleteTarefa', urlencodedParser, function(req, res) {
+app.delete('/deleteTarefa', urlencodedParser, function(req, res) {
 
     var id = req.body.id_tarefa;
 
@@ -278,9 +266,9 @@ app.post('/deleteTarefa', urlencodedParser, function(req, res) {
 // Create
 app.post('/createSubTarefa', urlencodedParser, function (req, res) {
 
-	  var data = { id_subtarefa: req.body.id_subtarefa, id_tarefa: req.body.id_tarefa, nome: req.body.nome,
+	  var data = { id_tarefa: req.body.id_tarefa, id_usuario: req.body.id_usuario, nome: req.body.nome,
 		      descricao: req.body.descricao, data_inicio: req.body.data_inicio, data_entrega: req.body.data_entrega,
-		      data_termino: req.body.data_termino }
+		       }                               
 
 	  pool.connect(function(err, client, done) {
 
@@ -288,8 +276,8 @@ app.post('/createSubTarefa', urlencodedParser, function (req, res) {
 	    return console.error('error fetching client from pool', err);
 	  }
 
-	  client.query( "INSERT INTO tb_subtarefas(id_subtarefa, id_tarefa, nome, descricao, data_inicio, data_entrega, data_termino) values($1,$2,$3,$4,$5,$6,$7)",
-			[data.id_subtarefa, data.id_tarefa, data.nome, data.descricao, data.data_inicio, data.data_entrega, data.data_termino])
+	  client.query( "INSERT INTO tb_subtarefas(id_tarefa, id_usuario, nome, descricao, data_inicio, data_entrega) values($1,$2,$3,$4,$5,$6)",
+			[ data.id_tarefa, data.id_usuario, data.nome, data.descricao, data.data_inicio, data.data_entrega])
 
 	  done();
 
@@ -303,7 +291,6 @@ app.post('/createSubTarefa', urlencodedParser, function (req, res) {
 // Retrieve
 app.get('/retrieveSubTarefa', function(req, res) {
 
-	var saida = "<table border=\"1\">";
 
     pool.connect(function(err, client, done) {
 
@@ -315,18 +302,14 @@ app.get('/retrieveSubTarefa', function(req, res) {
 
          client.query('SELECT * FROM tb_subtarefas ORDER BY id_subtarefa ASC', function(err,result){
 
-	   done();
+            done();
 
-	   if(err){
-		return console.error('error running query', err);
-	   }
+            if(err){
+                return console.error('error running query', err);
+            }
 
-	   for( i=0; i < result.rows.length; i++){
-		saida = saida + "<tr><td>" + result.rows[i].id_tarefa + "</td><td>"+ result.rows[i].id_projeto + "</td><td>" + result.rows[i].id_usuario + "</td><td" + result.rows[i].descricao + "</td><td> " + result.rows[i].data_inicio + "</td><td>" + result.rows[i].data_entrega + "</td><td>" + result.rows[i].data_termino + "</td></tr>";
-	   }
-
-	   saida = saida + "</table>";
-	   res.send(saida);
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.json(result.rows);
 
         });
 
@@ -367,7 +350,7 @@ app.put('/updateSubTarefa', urlencodedParser, function(req, res) {
 });
 
 // Delete
-app.post('/deleteSubTarefa', urlencodedParser, function(req, res) {
+app.delete('/deleteSubTarefa', urlencodedParser, function(req, res) {
 
     var id = req.body.id_subtarefa;
 
@@ -425,8 +408,6 @@ app.post('/createUsuario', urlencodedParser, function (req, res) {
 // Retrieve
 app.get('/retrieveUsuario', function(req, res) {
 
-	var saida = "<table border=\"1\">";
-
     pool.connect(function(err, client, done) {
 
         if(err) {
@@ -437,18 +418,14 @@ app.get('/retrieveUsuario', function(req, res) {
 
          client.query('SELECT * FROM tb_usuarios ORDER BY id_usuario ASC', function(err,result){
 
-	   done();
+            done();
 
-	   if(err){
-		return console.error('error running query', err);
-	   }
+            if(err){
+                return console.error('error running query', err);
+            }
 
-	   for( i=0; i < result.rows.length; i++){
-		saida = saida + "<tr><td>" + result.rows[i].id_usuario + "</td><td>"+ result.rows[i].nome + "</td><td>" + result.rows[i].sobrenome + "</td><td" + result.rows[i].username + "</td><td> " + result.rows[i].senha + "</td></tr>";
-	   }
-
-	   saida = saida + "</table>";
-	   res.send(saida);
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.json(result.rows);
 
         });
 
@@ -489,7 +466,7 @@ app.put('/updateUsuario', urlencodedParser, function(req, res) {
 });
 
 // Delete
-app.post('/deleteUsuario', urlencodedParser, function(req, res) {
+app.delete('/deleteUsuario', urlencodedParser, function(req, res) {
 
     var id = req.body.id_usuario;
 
@@ -518,4 +495,167 @@ app.post('/deleteUsuario', urlencodedParser, function(req, res) {
 
      });
 });
+
+
+// Selects
+
+// Seleciona todos os projetos do Usuario
+app.put('/retrieveProjetos_Usuario', urlencodedParser, function(req, res) {
+
+	var username = req.body.username; 
+
+    pool.connect(function(err, client, done) {
+
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+         client.query('SELECT p.nome, p.descricao, p.data_inicio, p.data_entrega  FROM tb_projetos p inner join tb_usuarios u on ( p.id_usuario = u.id_usuario and u.username = $1) order by 1 ASC', [username], function(err,result){
+
+            done();
+
+            if(err){
+                return console.error('error running query', err);
+            }
+
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.json(result.rows);
+
+        });
+
+    });
+
+});
+
+
+// Seleciona todas Tarefas do Usuario ordenando por Prioridade
+app.post('/retrieveTarefas_Usuario', urlencodedParser, function(req, res) {
+
+	var username = req.body.username; 
+
+    pool.connect(function(err, client, done) {
+
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+         client.query('SELECT t.prioridade, t.nome, t.descricao, t.data_inicio, t.data_entrega from tb_tarefas t inner join tb_usuarios u on ( u.id_usuario = t.id_usuario and u.username = $1 ) order by t.prioridade desc',[username], function(err,result){
+
+            done();
+
+            if(err){
+                return console.error('error running query', err);
+            }
+
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.json(result.rows);
+
+        });
+
+    });
+
+});
+
+// Seleciona todas Subtarefas do Usuario ordenando por Prioridade
+app.post('/retrieveSubtarefas_Usuario', urlencodedParser, function(req, res) {
+
+	var username = req.body.username; 
+
+
+    pool.connect(function(err, client, done) {
+
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+         client.query('SELECT st.prioridade, st.nome, st.descricao, st.data_inicio, st.data_entrega from tb_subtarefas st inner join tb_usuarios u on ( u.id_usuario = st.id_usuario and u.username = $1 ) order by st.prioridade desc',[username], function(err,result){
+
+            done();
+
+            if(err){
+                return console.error('error running query', err);
+            }
+
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.json(result.rows);
+
+        });
+
+    });
+
+});
+
+
+// Seleciona todos os Projetos já finalizados 
+app.post('/retrieveSubtarefas_Usuario', urlencodedParser, function(req, res) {
+
+	var username = req.body.username; 
+
+
+    pool.connect(function(err, client, done) {
+
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+         client.query('SELECT nome, descricao, data_inicio, data_final from tb_projetos where username = $1 and fg_ativo = 0',[username], function(err,result){
+
+            done();
+
+            if(err){
+                return console.error('error running query', err);
+            }
+
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.json(result.rows);
+
+        });
+
+    });
+
+});
+
+// Seleciona todos as Tarefas já finalizadas pelo Usuario
+app.post('/retrieveSubtarefas_Usuario', urlencodedParser, function(req, res) {
+
+	var username = req.body.username; 
+
+
+    pool.connect(function(err, client, done) {
+
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+         client.query('SELECT nome, descricao, data_inicio, data_final from tb_tarefas where username = $1 and fg_ativo = 0',[username], function(err,result){
+
+            done();
+
+            if(err){
+                return console.error('error running query', err);
+            }
+
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.json(result.rows);
+
+        });
+
+    });
+
+});
+
+
+
+
+
 

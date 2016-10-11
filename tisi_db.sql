@@ -13,13 +13,13 @@ create sequence seq_tb_usuarios_id_usuario
 create table tb_usuarios(
 id_usuario integer default nextval('seq_tb_usuarios_id_usuario'),
 
-nome varchar(20)
+nome varchar(50)
 	constraint nn_projetos_nome not null,
-sobrenome varchar(20)
+sobrenome varchar(50)
 	constraint nn_projetos_nome not null,
-username varchar(20)
+username varchar(30)
 	constraint nn_projetos_nome not null,
-senha varchar(20)
+senha varchar(30)
 	constraint nn_projetos_nome not null,
 fg_ativo integer,
 
@@ -38,9 +38,9 @@ create sequence seq_tb_projetos_id_projeto
 create table tb_projetos(
 id_projeto integer default nextval('seq_tb_projetos_id_projeto'),
 id_usuario integer,
-nome varchar(20)
+nome varchar(160)
 	constraint nn_projetos_nome not null,
-descricao varchar(100),
+descricao varchar(500),
 data_inicio date,
 data_entrega date,
 fg_ativo integer,
@@ -62,8 +62,9 @@ create table tb_tarefas(
 id_tarefa integer default nextval('seq_tb_tarefas_id_tarefa'),
 id_projeto integer,
 id_usuario integer,
-nome varchar(20),
-descricao varchar(100),
+nome varchar(160),
+prioridade integer,
+descricao varchar(500),
 data_inicio date,
 data_entrega date,
 fg_ativo integer,
@@ -90,8 +91,9 @@ create table tb_subtarefas(
 id_subtarefa integer default nextval('seq_tb_subtarefas_id_subtarefa'),
 id_tarefa integer,
 id_usuario integer,
-nome varchar(20),
-descricao varchar(100),
+nome varchar(160),
+prioridade integer,
+descricao varchar(500),
 data_inicio date,
 data_entrega date,
 fg_ativo integer,

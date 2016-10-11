@@ -11,34 +11,36 @@
 		<meta charset="utf-8"/>
 	</head>
 	<body ng-app="crudComBD" ng-controller="controlador">
-		<div class="container-fluid" data-ng-init="consulta()">
-			<h2> Controle de Produtos </h2>
+		<div class="container-fluid" data-ng-init="consultaProjetos()">
+			<h2> Controle de Projetos </h2>
 			<table class="table"> <!-- tabela -->
 				<tr> <!-- table row (nova linha)--> 
 					<!-- table header (célula de cabeçalho)-->
-					<th> Código </th>
 					<th> Nome </th> 
-					<th> Qtde </th> 
-					<th> Valor </th> 
-					<th> Opções </th>
+					<th> Descricão </th> 
+					<th> ID Usuario</th> 
+					<th> Data Inicio </th> 
+					<th> Data Entrega </th>
 				</tr>
-				<tr ng-repeat="produto in listaProdutos">
-					<td> {{produto.codigo}} </td> 
-					<td> {{produto.nome}} </td> 
-					<td> {{produto.qtde}} </td> 
-					<td> {{produto.valor}} </td>
+				<tr ng-repeat="projeto in Projetos">
+					<td> {{projeto.nome}} </td> 
+					<td> {{projeto.descricao}} </td> 
+					<td> {{projeto.id_usuario}} </td> 
+					<td> {{projeto.data_inicio}} </td>
+					<td> {{projeto.data_entrega}} </td>
 					<td> 
-						<a href="#" ng-click="remover(produto.codigo)"> Remover </a> 
+						<a href="#" ng-click="removerProjeto(projeto.id_projeto)"> Remover </a> 
 						||
-						<a href="#" ng-click="preparaAtualizar(produto.codigo)"> Atualizar </a> 
+						<a href="#" ng-click="preparaAtualizarProjeto(projeto.id_projeto)"> Atualizar </a> 
 					</td>
 				</tr>
 			</table>
-			<h2> Informações do Produto </h2>
-				Código <input type="number" class="form-control" ng-model="produto.codigo"/>
-			<br/>Nome <input type="text" class="form-control" ng-model="produto.nome"/>	
-			<br/>Qtde <input type="number" class="form-control" ng-model="produto.qtde"/>	
-			<br/>Valor <input type="number" class="form-control" ng-model="produto.valor"/>	
+			<h2> Informações do Projeto</h2>
+			Nome <input type="text" class="form-control" ng-model="projeto.nome"/>	
+			<br/>Descricão <input type="text" class="form-control" ng-model="projeto.descricao"/>	
+			<br/>ID Usuario<input type="number" class="form-control" ng-model="projeto.id_usuario"/>	
+			<br/>Data Inicio <input type="text" class="form-control" ng-model="produto.data_inicio"/>	
+			<br/>Data Entrega<input type="text" class="form-control" ng-model="produto.data_entrega"/>	
 			<br/>
 			<button type="button" class="btn btn-info" ng-click="inserir()"> Inserir </button>
 			<button type="button" class="btn btn-info" ng-click="atualizar()"> Atualizar </button>
