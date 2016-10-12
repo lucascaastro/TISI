@@ -498,7 +498,6 @@ app.delete('/deleteUsuario', urlencodedParser, function(req, res) {
 
 
 // Selects
-
 // Seleciona todos os projetos do Usuario
 app.put('/retrieveProjetos_Usuario', urlencodedParser, function(req, res) {
 
@@ -593,7 +592,7 @@ app.post('/retrieveSubtarefas_Usuario', urlencodedParser, function(req, res) {
 
 
 // Seleciona todos os Projetos já finalizados 
-app.post('/retrieveSubtarefas_Usuario', urlencodedParser, function(req, res) {
+app.post('/retrieveProjetosFinalizados_Usuario', urlencodedParser, function(req, res) {
 
 	var username = req.body.username; 
 
@@ -606,7 +605,7 @@ app.post('/retrieveSubtarefas_Usuario', urlencodedParser, function(req, res) {
           return res.status(500).json({ success: false, data: err});
         }
 
-         client.query('SELECT nome, descricao, data_inicio, data_final from tb_projetos where username = $1 and fg_ativo = 0',[username], function(err,result){
+         client.query('select p.nome, p.descricao, p.data_inicio, p.data_entrega from tb_projetos p inner join tb_usuarios u on ( p.id_usuario = u.id_usuario ) and u.username = $1 and p.fg_ativo = 0', [username], function(err,result){
 
             done();
 
@@ -624,7 +623,7 @@ app.post('/retrieveSubtarefas_Usuario', urlencodedParser, function(req, res) {
 });
 
 // Seleciona todos as Tarefas já finalizadas pelo Usuario
-app.post('/retrieveSubtarefas_Usuario', urlencodedParser, function(req, res) {
+app.post('/retrieveTarefasFinalizadas_Usuario', urlencodedParser, function(req, res) {
 
 	var username = req.body.username; 
 
@@ -637,7 +636,7 @@ app.post('/retrieveSubtarefas_Usuario', urlencodedParser, function(req, res) {
           return res.status(500).json({ success: false, data: err});
         }
 
-         client.query('SELECT nome, descricao, data_inicio, data_final from tb_tarefas where username = $1 and fg_ativo = 0',[username], function(err,result){
+         client.query('SELECT t.nome, t.descricao, t.data_inicio, t.data_entrega from tb_tarefas t inner join tb_usuarios u on (t.id_usuario = u.id_usuario) and u.username = $1 and t.fg_ativo = 0',[username], function(err,result){
 
             done();
 
@@ -654,7 +653,200 @@ app.post('/retrieveSubtarefas_Usuario', urlencodedParser, function(req, res) {
 
 });
 
+// Seleciona todos as Tarefas já finalizadas pelo Usuario
+app.post('/retrieveSubtarefasFinalizadas_Usuario', urlencodedParser, function(req, res) {
 
+	var username = req.body.username; 
+
+
+    pool.connect(function(err, client, done) {
+
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+         client.query('SELECT st.nome, st.descricao, st.data_inicio, st.data_entrega from tb_subtarefas st inner join tb_usuarios u on (st.id_usuario = u.id_usuario) and u.username = $1 and st.fg_ativo = 0',[username], function(err,result){
+
+            done();
+
+            if(err){
+                return console.error('error running query', err);
+            }
+
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.json(result.rows);
+
+        });
+
+    });
+
+});
+
+// Seleciona todos as Tarefas já finalizadas pelo Usuario dentro de um Projeto 
+app.post('/retrieveTarefasFinalizadasUsuario_Projeto', urlencodedParser, function(req, res) {
+
+	var username = req.body.username; 
+	var proj_nome = req.body.proj_nome;
+
+
+    pool.connect(function(err, client, done) {
+
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+         client.query('SELECT t.nome, t.descricao, t.data_inicio, t.data_entrega from tb_tarefas t inner join tb_usuarios u on (t.id_usuario = u.id_usuario) inner join tb_projetos p on ( p.id_usuario = u.id_usuario) where u.username = $1 and p.nome = $2  and t.fg_ativo = 0',[username, proj_nome], function(err,result){
+
+            done();
+
+            if(err){
+                return console.error('error running query', err);
+            }
+
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.json(result.rows);
+
+        });
+
+    });
+
+});
+
+// Seleciona todos as Subtarefas já finalizadas pelo Usuario dentro de um Projeto 
+app.post('/retrieveSubtarefasFinalizadasUsuario_Projeto', urlencodedParser, function(req, res) {
+
+	var username = req.body.username; 
+	var proj_nome = req.body.proj_nome;
+
+
+    pool.connect(function(err, client, done) {
+
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+         client.query('SELECT st.nome, st.descricao, st.data_inicio, st.data_entrega from tb_subtarefas st inner join tb_usuarios u on (st.id_usuario = u.id_usuario) inner join tb_projetos p on ( p.id_usuario = u.id_usuario) where u.username = $1 and p.nome = $2 and st.fg_ativo = 0',[username, proj_nome], function(err,result){
+
+            done();
+
+            if(err){
+                return console.error('error running query', err);
+            }
+
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.json(result.rows);
+
+        });
+
+    });
+
+});
+
+// Cancela um Projeto de um Usuario incluindo todas suas Tarefas e Subtarefas  
+app.post('/CancelarProjeto_Usuario', urlencodedParser, function(req, res) {
+
+	var id_usuario = req.body.id_usuario;
+	var id_projeto = req.body.id_projeto;
+
+
+    pool.connect(function(err, client, done) {
+
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+         client.query('update tb_projetos set fg_ativo = 0 from tb_usuarios where tb_usuarios.id_usuario = tb_projetos.id_usuario and tb_usuarios.id_usuario = $1 and tb_projetos.id_projeto = $2',[id_usuario, id_projeto], function(err,result){
+            done();
+            if(err){
+                return console.error('error running query', err);
+            }
+          });
+
+         client.query('update tb_tarefas set fg_ativo = 0 from tb_projetos where tb_projetos.id_projeto = tb_tarefas.id_projeto and tb_projetos.id_usuario = $1 and tb_projetos.id_projeto = $2',[id_usuario, id_projeto], function(err,result){
+            done();
+            if(err){
+                return console.error('error running query', err);
+            }
+          });
+
+         client.query('update tb_subtarefas set fg_ativo = 0 from tb_tarefas where tb_subtarefas.id_tarefa = tb_tarefas.id_tarefa and tb_tarefas.id_usuario = $1 and tb_tarefas.id_projeto = $2',[id_usuario, id_projeto], function(err,result){
+            done();
+            if(err){
+                return console.error('error running query', err);
+            }
+          });
+
+    });
+
+});
+
+
+// Cancela uma Tarefa de um Usuario dentro de um Projeto, incluindo todas suas subtarefas  
+app.post('/CancelarTarefa_Usuario', urlencodedParser, function(req, res) {
+
+	var id_usuario = req.body.id_usuario;
+	var id_projeto = req.body.id_projeto;
+
+
+    pool.connect(function(err, client, done) {
+
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+         client.query('update tb_tarefas set fg_ativo = 0 from tb_projetos where tb_projetos.id_projeto = tb_tarefas.id_projeto and tb_projetos.id_usuario = $1 and tb_projetos.id_projeto = $2',[id_usuario, id_projeto], function(err,result){
+            done();
+            if(err){
+                return console.error('error running query', err);
+            }
+          });
+
+         client.query('update tb_subtarefas set fg_ativo = 0 from tb_tarefas where tb_subtarefas.id_tarefa = tb_tarefas.id_tarefa and tb_tarefas.id_usuario = $1 and tb_tarefas.id_projeto = $2',[id_usuario, id_projeto], function(err,result){
+            done();
+            if(err){
+                return console.error('error running query', err);
+            }
+          });
+
+    });
+
+});
+
+// Cancela uma Subtarefa de um Usuario dentro de uma Tarefa 
+app.post('/CancelarSubtarefa_Usuario', urlencodedParser, function(req, res) {
+
+	var id_usuario = req.body.id_usuario;
+	var id_projeto = req.body.id_projeto;
+
+
+    pool.connect(function(err, client, done) {
+
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+         client.query('update tb_subtarefas set fg_ativo = 0 from tb_tarefas where tb_subtarefas.id_tarefa = tb_tarefas.id_tarefa and tb_tarefas.id_usuario = $1 and tb_tarefas.id_projeto = $2',[id_usuario, id_projeto], function(err,result){
+            done();
+            if(err){
+                return console.error('error running query', err);
+            }
+          });
+
+    });
+
+});
 
 
 
