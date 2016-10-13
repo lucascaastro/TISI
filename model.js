@@ -33,8 +33,8 @@ var pool = new pg.Pool(config);
 // Create
 app.post('/createProjeto', urlencodedParser, function (req, res) {
 
-	  var data = { id_projeto: req.body.id_projeto, id_usuario: req.body.id_usuario, nome: req.body.nome,
-		      objetivos: req.body.objetivos, descricao: req.body.descricao, data_inicio: req.body.data_inicio, data_entrega: req.body.data_entrega,
+	  var data = {  id_usuario: req.body.id_usuario, nome: req.body.nome,
+		      descricao: req.body.descricao, data_inicio: req.body.data_inicio, data_entrega: req.body.data_entrega,
 		       }
 
 	  pool.connect(function(err, client, done) {
