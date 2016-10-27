@@ -135,21 +135,21 @@ app.delete('/deleteProjeto/:id_projeto', function(req, res) {
           return res.status(500).json({ success: false, data: err});
         }
 
-        client.query('DELETE FROM tb_subtarefas USING tb_tarefas where tb_tarefas.id_tarefa = tb_subtarefas.id_tarefa and tb_tarefas.id_projeto  = ' + id, function(err, result) {
+    client.query('DELETE FROM tb_subtarefas USING tb_tarefas where tb_tarefas.id_tarefa = tb_subtarefas.id_tarefa and tb_tarefas.id_projeto  = ' + id, function(err, result) {
 	  done();
 	  if( err ){
 		return console.error('error running query', err);
 	  }
 	});
 
-        client.query('DELETE FROM tb_tarefas WHERE tb_tarefas.id_projeto = ' + id, function(err, result) {
+    client.query('DELETE FROM tb_tarefas WHERE tb_tarefas.id_projeto = ' + id, function(err, result) {
 	  done();
 	  if( err ){
 		return console.error('error running query', err);
 	  }
 	});
 
-        client.query('DELETE FROM tb_projetos WHERE tb_projetos.id_projeto = ' + id, function(err, result) {
+    client.query('DELETE FROM tb_projetos WHERE tb_projetos.id_projeto = ' + id, function(err, result) {
 	  done();
 	  if( err ){
 		return console.error('error running query', err);
