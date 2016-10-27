@@ -21,11 +21,10 @@ username varchar(30)
 	constraint nn_projetos_nome not null,
 senha varchar(30)
 	constraint nn_projetos_nome not null,
-fg_ativo integer,
+fg_ativo integer default 1,
 
 constraint pk_tb_usuarios_id_usuario primary key( id_usuario )
 );
-
 
 
 create sequence seq_tb_projetos_id_projeto
@@ -43,12 +42,13 @@ nome varchar(160)
 descricao varchar(500),
 data_inicio date,
 data_entrega date,
-fg_ativo integer,
+fg_ativo integer default 1,
 
 constraint pk_projetos_id_projeto primary key( id_projeto ),
 constraint fk_projetos_id_usuario foreign key(id_usuario)
 		references tb_usuarios(id_usuario)
 );
+
 
 
 create sequence seq_tb_tarefas_id_tarefa
@@ -63,11 +63,11 @@ id_tarefa integer default nextval('seq_tb_tarefas_id_tarefa'),
 id_projeto integer,
 id_usuario integer,
 nome varchar(160),
-prioridade integer,
+prioridade integer default 1,
 descricao varchar(500),
 data_inicio date,
 data_entrega date,
-fg_ativo integer,
+fg_ativo integer default 1,
 
 constraint pk_tarefas_id_tarefa primary key(id_tarefa),
 
@@ -77,6 +77,7 @@ constraint fk_tarefas_id_projeto foreign key(id_projeto)
 constraint fk_tarefas_id_usuario foreign key(id_usuario)
 		references tb_usuarios(id_usuario)
 );
+
 
 
 create sequence seq_tb_subtarefas_id_subtarefa
@@ -92,11 +93,11 @@ id_subtarefa integer default nextval('seq_tb_subtarefas_id_subtarefa'),
 id_tarefa integer,
 id_usuario integer,
 nome varchar(160),
-prioridade integer,
+prioridade integer default 1,
 descricao varchar(500),
 data_inicio date,
 data_entrega date,
-fg_ativo integer,
+fg_ativo integer default 1,
 
 constraint pk_subtarefas_id_subtarefa primary key(id_subtarefa),
 
@@ -108,4 +109,26 @@ constraint fk_subtarefas_id_usuario foreign key(id_usuario)
 );
 
 
+insert into tb_usuarios( nome, sobrenome, username, senha, fg_ativo)
+values
+('AAA', 'AAA', 'aaa','12345', 1),
+('BBB', 'BBB', 'bbb','12345', 1),
+('CCC', 'CCC', 'ccc','12345', 1);
 
+insert into tb_projetos( id_usuario, nome, descricao, data_inicio, data_entrega, fg_ativo)
+values
+(1, 'Projeto A', 'Descrição Projeto A', '1/1/2016', '2/1/2016', 1),
+(1, 'Projeto B', 'Descrição Projeto B', '1/1/2016', '2/1/2016', 1),
+(1, 'Projeto C', 'Descrição Projeto C', '1/1/2016', '2/1/2016', 1);
+
+insert into tb_tarefas( id_projeto, id_usuario, nome, prioridade, descricao, data_inicio, data_entrega, fg_ativo )
+values
+(1, 1, 'Tarefa A', 3, 'Minha Tarefa A', '1/1/2016', '2/2/2016', 1),
+(1, 1, 'Tarefa B', 3, 'Minha Tarefa B', '1/1/2016', '2/2/2016', 1),
+(1, 1, 'Tarefa C', 3, 'Minha Tarefa C', '1/1/2016', '2/2/2016', 1);
+
+insert into tb_subtarefas( id_tarefa, id_usuario, nome, prioridade, descricao, data_inicio, data_entrega, fg_ativo)
+values
+(1, 1, 'Subtarefa A', 1, 'Minha Subtarefa A', '1/1/2016', '2/1/2016', 1),
+(1, 1, 'Subtarefa B', 2, 'Minha Subtarefa B', '1/1/2016', '2/1/2016', 1),
+(1, 1, 'Subtarefa C', 3, 'Minha Subtarefa C', '1/1/2016', '2/1/2016', 1);
