@@ -419,7 +419,7 @@ app.post('/createUsuario', urlencodedParser, function (req, res) {
 });
 
 // Retrieve
-app.get('/retrieveUsuario', function(req, res) {
+app.get('/retrieveUsuarios', function(req, res) {
 
     pool.connect(function(err, client, done) {
 
@@ -478,9 +478,9 @@ app.put('/updateUsuario', urlencodedParser, function(req, res) {
 });
 
 // Delete
-app.delete('/deleteUsuario', urlencodedParser, function(req, res) {
+app.delete('/deleteUsuario/:id_usuario', function(req, res) {
 
-    var id = req.body.id_usuario;
+    var id = req.params.id_usuario;
 
 
     // Get a Postgres client from the connection pool
@@ -529,9 +529,9 @@ app.delete('/deleteUsuario', urlencodedParser, function(req, res) {
 
 // Selects
 // Seleciona todos os projetos do Usuario
-app.put('/retrieveProjetos_Usuario', urlencodedParser, function(req, res) {
+app.post('/retrieveProjetos_Usuario', urlencodedParser, function(req, res) {
 
-	var username = req.body.username; 
+    var username = req.body.username; 
 
     pool.connect(function(err, client, done) {
 
@@ -652,7 +652,7 @@ app.post('/retrieveProjetosFinalizados_Usuario', urlencodedParser, function(req,
 
 });
 
-// Seleciona todos as Tarefas já finalizadas pelo Usuario
+// Seleciona todas as Tarefas já finalizadas pelo Usuario
 app.post('/retrieveTarefasFinalizadas_Usuario', urlencodedParser, function(req, res) {
 
 	var username = req.body.username; 
@@ -683,7 +683,7 @@ app.post('/retrieveTarefasFinalizadas_Usuario', urlencodedParser, function(req, 
 
 });
 
-// Seleciona todos as Subtarefas já finalizadas pelo Usuario
+// Seleciona todas as Subtarefas já finalizadas pelo Usuario
 app.post('/retrieveSubtarefasFinalizadas_Usuario', urlencodedParser, function(req, res) {
 
 	var username = req.body.username; 
@@ -714,7 +714,7 @@ app.post('/retrieveSubtarefasFinalizadas_Usuario', urlencodedParser, function(re
 
 });
 
-// Seleciona todos as Tarefas já finalizadas pelo Usuario dentro de um Projeto 
+// Seleciona todas as Tarefas já finalizadas pelo Usuario dentro de um Projeto 
 app.post('/retrieveTarefasFinalizadasUsuario_Projeto', urlencodedParser, function(req, res) {
 
 	var username = req.body.username; 
@@ -746,7 +746,7 @@ app.post('/retrieveTarefasFinalizadasUsuario_Projeto', urlencodedParser, functio
 
 });
 
-// Seleciona todos as Subtarefas já finalizadas pelo Usuario dentro de um Projeto 
+// Seleciona todas as Subtarefas já finalizadas pelo Usuario dentro de um Projeto 
 app.post('/retrieveSubtarefasFinalizadasUsuario_Projeto', urlencodedParser, function(req, res) {
 
 	var username = req.body.username; 

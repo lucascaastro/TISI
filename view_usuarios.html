@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">
+		</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="controller.js"> </script>
+		<meta charset="utf-8"/>
+	</head>
+
+	<body ng-app="crudComBD" ng-controller="controlador">
+		<div class="container-fluid" data-ng-init="consultaUsuarios()">
+
+			<h2> Controle de Usuarios </h2>
+			<table class="table"> <!-- tabela -->
+				<tr> <!-- table row (nova linha)--> 
+					<!-- table header (célula de cabeçalho)-->
+					<th> ID Usuário</th>
+					<th> Nome </th> 
+					<th> Sobrenome </th> 
+					<th> Username </th> 
+					<th> Senha </th> 
+					<th> FG Ativo </th> 
+				</tr>
+				<tr ng-repeat="usuario in listaUsuarios">
+					<td> {{usuario.id_usuario}} </td> 
+					<td> {{usuario.nome}} </td> 
+					<td> {{usuario.sobrenome}} </td> 
+					<td> {{usuario.username}} </td> 
+					<td> {{usuario.senha}} </td> 
+					<td> {{usuario.fg_ativo}} </td> 
+					<td> 
+						<a href="#" ng-click="removerUsuario(usuario.id_usuario)"> Remover </a> 
+						||
+						<a href="#" ng-click="preparaAtualizarUsuario(usuario.id_usuario)"> Atualizar </a> 
+					</td>
+				</tr>
+			</table>
+			<h2> Informações do Usuario</h2>
+
+			<br/>Nome <input type="text" class="form-control" ng-model="usuario.nome"/>	
+			<br/>Sobrenome <input type="text" class="form-control" ng-model="usuario.sobrenome"/>	
+			<br/>Username <input type="text" class="form-control" ng-model="usuario.username"/>	
+			<br/>Senha <input type="text" class="form-control" ng-model="usuario.senha"/>	
+			<br/>
+
+			<button type="button" class="btn btn-info" ng-click="inserirUsuario()"> Inserir </button>
+			<button type="button" class="btn btn-info" ng-click="atualizarUsuario()"> Atualizar </button>
+			<script>
+			
+			</script>
+			</div>
+	</body>
+</html>
