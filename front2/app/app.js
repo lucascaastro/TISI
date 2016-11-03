@@ -7,11 +7,11 @@ angular
 
     $routeProvider
 
-    .when('/', {
-       templateUrl: 'app/views/home.html',
-       controller: 'HomeCtrl',
+    .when('/projetos', {
+       templateUrl: 'app/views/projetos.html',
+       controller: 'ProjetosCtrl',
     })
 
-    .otherwise ({ redirectTo: '/' });
+    .otherwise ({ redirectTo: '/projetos' });
 
   });
