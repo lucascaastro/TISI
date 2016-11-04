@@ -1,27 +1,40 @@
-// cria objeto express - servidor Web (HTTP)
+
 var express = require('express');
 
-// cria objeto bodyParser - dados do usuário do formulário
 var bodyParser = require('body-parser');
-
-// cria aplicação express
-var app = express();
-app.listen(3000)
+var cookieParser = require('cookie-parser');
+var expressSession = require('express-session');
+var expressValidator = require('express-validator');
 
 var core_use = require('cors');
+var jsonParser = bodyParser.json();
+var urlencodedParser = bodyParser.urlencoded({extended:true})
+var pg = require('pg');
+var app = express();
+var User = {id:-1};
+
+
+
+app.listen(3000);
+
 app.use(core_use());
 
 app.use( bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
-// cria objeto capaz de manipular documento JSON
-var jsonParser = bodyParser.json();
+// configura express-session
+app.use(expressSession({
 
-// cria um parser application/x-www-form-urlencoded
-var urlencodedParser = bodyParser.urlencoded({extended:true})
+    secret: process.env.SESSION_SECRET || 'secret',
+    saveUninitialized:false,
+    resave:false,
 
-var pg = require('pg');
+}));
 
+app.use(expressValidator());
+
+
+// Configure o acesso ao banco 
 var config = {
   user: 'postgres', 
   database: 'TISI', 
@@ -31,9 +44,118 @@ var config = {
   idleTimeoutMillis: 30000, 
 };
 
-// Configure the pool
 var pool = new pg.Pool(config);
 
+
+
+// Rota Login
+app.post('/login', urlencodedParser, function (req, res) {
+
+       
+       var username=req.body.username;
+       var senha=req.body.senha;
+       var confirmaSenha =req.body.confirmaSenha;
+      
+       //var User = {id:-1};
+       var usuario_existe;
+       req.session.id_usuario = -1; // o usuario ainda não está logado na sessão 
+
+	// Validação dos Dados
+	//req.check('username', 'Nome de usuário Inválido.').isEmail();
+	//req.check('senha', 'Senha inválida').isLength({min:4}).equals(confirmaSenha);
+	req.check('senha', 'Senha inválida').isLength({min:4});
+
+	// Verificar se houve erros na validação
+	// se não procurar pelo usuario no banco
+
+	var errors = req.validationErrors();
+	if(errors){
+	  req.session.erros = errors;
+	  console.log(errors);
+	  res.send('Not Working');
+	}
+	else{
+	   //res.send('Working');
+
+	  // verificar se o usuario existe no banco
+	  pool.connect(function(err, client, done){
+
+		  if(err) {
+		    return console.error('error fetching client from pool', err);
+		  }
+
+		  var query = client.query("SELECT COUNT(*) FROM tb_usuarios where tb_usuarios.username = $1 and tb_usuarios.senha = $2", [username, senha], function(err,row){
+		    done();
+
+		    if(err){
+			return console.error('error running query', err);
+		    }
+
+		  }); // end query
+
+		  query.on('row', function(row){
+
+			usuario_existe = row.count;
+
+			  // Usuario existe
+			  console.log('usuario existe: ' + usuario_existe);
+			  if( usuario_existe == 1){
+				
+				// Criar objeto User para a sessão
+				var query = client.query("SELECT id_usuario FROM tb_usuarios where tb_usuarios.username = $1", [username], function(err, result){
+					 done();
+
+					 if(err){
+					    return console.error('error running query', err);
+					  }
+
+					  console.log('id_usuario no banco:' + result.rows[0].id_usuario);
+					  User.id = result.rows[0].id_usuario;
+					  req.session.id_usuario = result.rows[0].id_usuario;
+
+				   
+				 });
+
+				 res.send('Usuario Existe e sessão iniciada');
+			  }
+			  else{
+				res.send('Usuario Não existe\n');
+			  }
+		  });
+
+  	  }); // end connect
+	} // end else
+}); // end rota login
+
+app.get('/dashboard', function(req, res){
+
+	console.log('Dashboard User.id: ' + User.id);
+
+	//Verifica se o usuario não está logado
+	if(User.id == -1 ){
+		res.status(404).send("Não está logado.");
+	}
+	res.status(200).send("Deu certo, vc está logado !! ");
+});
+
+app.get('/logout', function(req, res){
+
+	//Verifica se o usuario não está logado
+	if(User.id == -1){
+		res.status(404).send("Não está logado.");
+	}
+	else{
+	   User.id = -1; 
+	   req.session.destroy( function(err){
+	    if(err){
+	    	return console.error('erro na hora de destruir a sessão', err);
+	    }
+
+	    res.send("Não está mais logado.");
+	   });
+	   
+	}
+});
 
 // CRUD Projetos
 // Create
@@ -58,7 +180,7 @@ app.post('/createProjeto', urlencodedParser, function (req, res) {
 	    return console.error('error running query', err);
 	  }
 
-  });
+  	  });
 });
 
 // Retrieve

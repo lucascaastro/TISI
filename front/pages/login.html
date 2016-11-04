@@ -128,9 +128,9 @@
       <div class="modal-dialog">
         <div class="loginmodal-container">
           <h1>Login</h1><br>
-          <form>
-            <input type="email" name="user" placeholder="Email">
-            <input type="password" name="pass" placeholder="Senha">
+          <form method="post" action="http://localhost:3000/login">
+            <input type="text" name="username" placeholder="Username">
+            <input type="password" name="senha" placeholder="Senha">
             <input type="submit" name="login" class="login loginmodal-submit" value="Login">
           </form>
 
