@@ -2,56 +2,47 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-csp="" ng-app="boilerplate"> <!--<![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en"> <!--<![endif]-->
 
 	<head>
 
 		<base href="/">
 		<meta charset="utf-8">
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
-		<title>AngularJS Boilerplate</title>
-		<meta name="description" content="Simple AngularJS Boilerplate to kick start your new project with SASS support and Gulp watch/build tasks">
+		<title>TISI Angular</title>
+		<meta name="description" content="">
 
 		<!-- mobile meta -->
 		<meta name="HandheldFriendly" content="True">
 		<meta name="MobileOptimized" content="320">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+		<link rel="shortcut icon" type="image/x-icon" href="app/img/favicon.ico">
 
 		<!--[if IE]>
 			<link rel="shortcut icon" href="favicon.ico">
 		<![endif]-->
 		<!-- or, set /favicon.ico for IE10 win -->
-		<meta name="msapplication-TileColor" content="#f01d4f">
-
-		<link rel="stylesheet" type="text/css" href="styles/home.css" />
+		<link rel="stylesheet" type="text/css" href="app/css/home.css" />
+		<link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css" />
 
 	</head>
 
-	<body class="main-wrapper">
+	<body ng-app="app">
 
 		<!--[if lt IE 8]>
 		    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
 
-		<div data-ng-view="" class="container"></div>
+		<div ng-view></div>
 
+		<script src="libs/angular/angular.min.js"></script>
+		<script src="libs/angular-route/angular-route.min.js"></script>
+
+		<script src="app/app.js"></script>
+		<script src="app/controllers/projetosController.js"></script>
+		<script src="app/controllers/subtarefasController.js"></script>
+		<script src="app/controllers/tarefasController.js"></script>
+		<script src="app/controllers/usuariosController.js"></script>
 	</body>
-
-	<script type="text/javascript" src="bower_components/angular/angular.js"></script>
-	<script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
-	<script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-
-	<script type="text/javascript" src="app/app.js"></script>
-	<script type="text/javascript" src="app/controllers/homeController.js"></script>
-
-	<script>
-	    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-	    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-	    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-	    e.src='https://www.google-analytics.com/analytics.js';
-	    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-	    ga('create','UA-XXXXX-X','auto');ga('send','pageview');
-	</script>
-
 </html>

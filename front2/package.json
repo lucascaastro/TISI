@@ -1,9 +1,9 @@
 {
-  "name": "angularjs-boilerplate",
-  "version": "1.1.7",
-  "license": "MIT",
-  "description": "Simple AngularJS Boilerplate to kick start your new project with SASS support and Gulp watch/build tasks",
-  "main": "app/app.js",
+  "name": "TISI Angular",
+  "version": "1.0.0",
+  "license": "",
+  "description": "",
+  "main": "js/app.js",
   "devDependencies": {
     "browser-sync": "^1.9.1",
     "connect": "^3.3.1",
@@ -39,23 +39,12 @@
   "scripts": {
     "postinstall": "bower install --no-interactive --allow-root"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jbutko/AngularJS-Boilerplate.git"
-  },
   "keywords": [
     "angular",
     "angularjs",
-    "boilerplate",
     "front-end",
     "app",
     "single-page",
     "spa"
   ],
-  "author": "Jozef Butko",
-  "docs": "https://github.com/jbutko/AngularJS-Boilerplate/blob/master/README.md",
-  "bugs": {
-    "url": "https://github.com/jbutko/AngularJS-Boilerplate/issues"
-  },
-  "homepage": "https://github.com/jbutko/AngularJS-Boilerplate"
 }
