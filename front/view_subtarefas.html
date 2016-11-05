@@ -11,7 +11,7 @@
 		<meta charset="utf-8"/>
 	</head>
 	<body ng-app="crudComBD" ng-controller="controlador">
-		<div class="container-fluid" data-ng-init="consultaSubTarefas()">
+		<div class="container-fluid" data-ng-init="consultaSubTarefas_Usuario()">
 
 			<h2> Controle de Sub-Tarefas </h2>
 			<table class="table"> <!-- tabela -->
@@ -38,6 +38,8 @@
 					<td> {{subtarefa.data_entrega}} </td> 
 					<td> {{subtarefa.fg_ativo}} </td> 
 					<td> 
+						<a href="#" ng-click="finalizarSubTarefa(subtarefa.id_subtarefa)"> Finalizar </a> 
+						||
 						<a href="#" ng-click="removerSubTarefa(subtarefa.id_subtarefa)"> Remover </a> 
 						||
 						<a href="#" ng-click="preparaAtualizarSubTarefa(subtarefa.id_subtarefa)"> Atualizar </a> 

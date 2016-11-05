@@ -4,8 +4,8 @@
 			
 
 	  // Projetos 
-		var atualizaTabelaProjetos = function(){
-			$http.get('http://localhost:3000/retrieveProjetos')
+		var atualizaTabelaProjetos_Usuario = function(){
+			$http.get('http://localhost:3000/retrieveProjetos_Usuario')
 			.then(function (response){
 				$scope.listaProjetos = response.data;			
 				}
@@ -13,19 +13,32 @@
 		};
 
 
-		$scope.consultaProjetos = function(){
-			atualizaTabelaProjetos();
+		$scope.consultaProjetos_Usuario = function(){
+			atualizaTabelaProjetos_Usuario();
 		};
 
 
 		$scope.removerProjeto = function(id_projeto){
 
-			var resposta = confirm("Confirma a exclusão deste elemento?");
+			var resposta = confirm("Confirma a exclusão deste Projeto ?");
 
 			if (resposta == true){
 				$http.delete('http://localhost:3000/deleteProjeto/' + id_projeto)
 				.then(function (response){
-					atualizaTabelaProjetos();
+					atualizaTabelaProjetos_Usuario();
+				});
+			}
+		};
+
+		$scope.finalizarProjeto = function(id_projeto){
+			
+			var posicao = retornaIndiceProjeto(id_projeto);
+			var resposta = confirm("Deseja finalizar este Projeto ?");
+
+			if (resposta == true){
+				$http.put('http://localhost:3000/finalizarProjeto_Usuario', $scope.listaProjetos[posicao])
+				.then(function (response){
+					atualizaTabelaProjetos_Usuario();
 				});
 			}
 		};
@@ -45,7 +58,7 @@
 		$scope.atualizarProjeto = function(){
 			$http.put('http://localhost:3000/updateProjeto', $scope.projeto)
 			.then(function (response){
-				atualizaTabelaProjetos();
+				atualizaTabelaProjetos_Usuario();
 				alert("Atualização com sucesso");
 			});
 		};	
@@ -67,8 +80,8 @@
 
 
 	  // Tarefas 
-		var atualizaTabelaTarefas= function(){
-			$http.get('http://localhost:3000/retrieveTarefas')
+		var atualizaTabelaTarefas_Usuario = function(){
+			$http.get('http://localhost:3000/retrieveTarefas_Usuario')
 			.then(function (response){
 				$scope.listaTarefas= response.data;			
 				}
@@ -76,14 +89,29 @@
 		};
 
 
-		$scope.consultaTarefas= function(){
-			atualizaTabelaTarefas();
+		$scope.consultaTarefas_Usuario = function(){
+			atualizaTabelaTarefas_Usuario();
 		};
+
+		var atualiza_Tabela_Subtarefas_Tarefa_Usuario = function(id_tarefa){
+			var posicao = retornaIndiceTarefa(id_tarefa);
+			//$http.post('http://localhost:3000/retrieveSubtarefas_Tarefa_Usuario', $scope.listaTarefas[posicao])
+			$http.get('http://localhost:3000/retrieveSubtarefas_Tarefa_Usuario', id_tarefa)
+			.then(function (response){
+				$scope.listaSubTarefas = response.data;			
+				}
+			);
+		};
+
+		$scope.consultaTarefas_Usuario = function(){
+			atualizaTabelaTarefas_Usuario();
+		};
+
 
 
 		$scope.removerTarefa = function(id_tarefa){
 
-			var resposta = confirm("Confirma a exclusão deste elemento?");
+			var resposta = confirm("Confirma a exclusão desta Tarefa ?");
 
 			if (resposta == true){
 				$http.delete('http://localhost:3000/deleteTarefa/' + id_tarefa )
@@ -92,6 +120,19 @@
 				});
 			}
 		};
+
+		$scope.finalizarTarefa = function(id_tarefa){
+
+			var posicao = retornaIndiceTarefa(id_tarefa);
+
+			var resposta = confirm("Deseja finalizar esta Tarefa ?");
+
+			$http.put('http://localhost:3000/finalizarTarefa_Usuario', $scope.listaTarefas[posicao])
+			.then(function (response){
+				atualizaTabelaTarefas_Usuario();
+				alert("Atualização com sucesso");
+			});
+		};	
 
 
 		$scope.inserirTarefa = function(){
@@ -129,8 +170,9 @@
 		}
 
 	  // SubTarefas 
-		var atualizaTabelaSubTarefas= function(){
-			$http.get('http://localhost:3000/retrieveSubTarefas')
+
+		var atualizaTabelaSubTarefas_Usuario= function(){
+			$http.get('http://localhost:3000/retrieveSubTarefas_Usuario')
 			.then(function (response){
 				$scope.listaSubTarefas = response.data;			
 				}
@@ -138,19 +180,32 @@
 		};
 
 
-		$scope.consultaSubTarefas= function(){
-			atualizaTabelaSubTarefas();
+		$scope.consultaSubTarefas_Usuario = function(){
+			atualizaTabelaSubTarefas_Usuario();
+		};
+
+		var atualizaTabelaSubTarefasFinalizadas_Usuario= function(){
+			$http.get('http://localhost:3000/retrieveSubTarefasFinalizadas_Usuario')
+			.then(function (response){
+				$scope.listaSubTarefas = response.data;			
+				}
+			);
+		};
+
+
+		$scope.consultaSubTarefasFinalizadas_Usuario = function(){
+			atualizaTabelaSubTarefasFinalizadas_Usuario();
 		};
 
 
 		$scope.removerSubTarefa = function(id_subtarefa){
 
-			var resposta = confirm("Confirma a exclusão deste elemento?");
+			var resposta = confirm("Confirma a exclusão desta Subtarefa ?");
 
 			if (resposta == true){
 				$http.delete('http://localhost:3000/deleteSubTarefa/' + id_subtarefa )
 				.then(function (response){
-					atualizaTabelaSubTarefas();
+					atualizaTabelaSubTarefas_Usuario();
 				});
 			}
 		};
@@ -159,7 +214,7 @@
 		$scope.inserirSubTarefa = function(){
 			$http.post('http://localhost:3000/createSubTarefa', $scope.subtarefa )
 			.then(function (response){
-				atualizaTabelaSubTarefas();
+				atualizaTabelaSubTarefas_Usuario();
 				alert("Inserção com sucesso");
 			}
 			);
@@ -170,7 +225,7 @@
 		$scope.atualizarSubTarefa = function(){
 			$http.put('http://localhost:3000/updateSubTarefa', $scope.subtarefa )
 			.then(function (response){
-				atualizaTabelaSubTarefas();
+				atualizaTabelaSubTarefas_Usuario();
 				alert("Atualização com sucesso");
 			});
 		};	
@@ -179,6 +234,20 @@
 			var posicao = retornaIndiceSubTarefa(id_subtarefa);
 			$scope.subtarefa = $scope.listaSubTarefas[posicao];
 		}
+
+		$scope.finalizarSubTarefa = function(id_subtarefa){
+
+			var posicao = retornaIndiceSubTarefa(id_subtarefa);
+
+			var resposta = confirm("Deseja finalizar esta Subtarefa ?");
+
+			$http.put('http://localhost:3000/finalizarSubtarefa', $scope.listaSubTarefas[posicao])
+			.then(function (response){
+				atualizaTabelaSubTarefas_Usuario();
+				alert("Atualização com sucesso");
+			});
+		};	
+
 
 		function retornaIndiceSubTarefa(id_subtarefa){
 			var i;
@@ -218,11 +287,10 @@
 		};
 
 
-		$scope.inserirUsuario = function(){
-			$http.post('http://localhost:3000/createUsuario', $scope.usuario )
+		$scope.cadastrarUsuario = function(){
+			$http.post('http://localhost:3000/cadastroUsuario', $scope.usuario )
 			.then(function (response){
 				atualizaTabelaUsuarios();
-				alert("Inserção com sucesso");
 			}
 			);
 			
