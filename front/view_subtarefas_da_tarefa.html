@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">
+		</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="controller.js"> </script>
+		<meta charset="utf-8"/>
+	</head>
+	<body ng-app="crudComBD" ng-controller="controlador">
+		<div class="container-fluid" data-ng-init="consultaSubTarefas_Usuario()">
+
+			<h2> Controle de Sub-Tarefas </h2>
+			<table class="table"> <!-- tabela -->
+				<tr> <!-- table row (nova linha)--> 
+					<!-- table header (célula de cabeçalho)-->
+					<th> ID Subtarefa</th>
+					<th> ID Tarefa</th>
+					<th> ID Usuário</th>
+					<th> Nome </th> 
+					<th> Prioridade </th> 
+					<th> Descrição </th> 
+					<th> Data Inicio </th> 
+					<th> Data Entrega </th> 
+					<th> FG Ativo </th> 
+				</tr>
+				<tr ng-repeat="subtarefa in listaSubTarefas">
+					<td> {{subtarefa.id_subtarefa}} </td> 
+					<td> {{subtarefa.id_tarefa}} </td> 
+					<td> {{subtarefa.id_usuario}} </td> 
+					<td> {{subtarefa.nome}} </td> 
+					<td> {{subtarefa.prioridade}} </td> 
+					<td> {{subtarefa.descricao}} </td> 
+					<td> {{subtarefa.data_inicio}} </td> 
+					<td> {{subtarefa.data_entrega}} </td> 
+					<td> {{subtarefa.fg_ativo}} </td> 
+					<td> 
+						<a href="#" ng-click="finalizarSubTarefa(subtarefa.id_subtarefa)"> Finalizar </a> 
+						||
+						<a href="#" ng-click="removerSubTarefa(subtarefa.id_subtarefa)"> Remover </a> 
+						||
+						<a href="#" ng-click="preparaAtualizarSubTarefa(subtarefa.id_subtarefa)"> Atualizar </a> 
+					</td>
+				</tr>
+			</table>
+			<h2> Informações do Sub-Tarefa</h2>
+
+			<br/>ID Subtarefa<input type="number" class="form-control" ng-model="subtarefa.id_subtarefa"/>
+			<br/>ID Tarefa<input type="number" class="form-control" ng-model="subtarefa.id_tarefa"/>
+			<br/>ID Usuário<input type="number" class="form-control" ng-model="subtarefa.id_usuario"/>
+			<br/>Nome <input type="text" class="form-control" ng-model="subtarefa.nome"/>	
+			<br/>Prioridade <input type="number" class="form-control" ng-model="subtarefa.prioridade"/>	
+			<br/>Descrição <input type="text" class="form-control" ng-model="subtarefa.descricao"/>	
+			<br/>Data Início<input type="text" class="form-control" ng-model="subtarefa.data_inicio"/>	
+			<br/>Data Entrega<input type="text" class="form-control" ng-model="subtarefa.data_entrega"/>	
+			<br/>
+
+			<button type="button" class="btn btn-info" ng-click="inserirSubTarefa()"> Inserir </button>
+			<button type="button" class="btn btn-info" ng-click="atualizarSubTarefa()"> Atualizar </button>
+			<script>
+			
+			</script>
+			</div>
+	</body>
+</html>

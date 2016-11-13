@@ -4,11 +4,8 @@
   "description": "tisi",
   "main": "index.js",
   "dependencies": {
-<<<<<<< HEAD:package.json
-    "cookie-parser": "^1.4.3",
-=======
+   "cookie-parser": "^1.4.3",
     "angular-ui-router": "^0.3.1",
->>>>>>> 76d3bd3f54ff219056108973ced55bf51415ac7a:back/package.json
     "cors": "^2.8.1",
     "express": "^4.14.0",
     "express-session": "^1.14.2",

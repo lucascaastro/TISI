@@ -3,7 +3,7 @@
 	<head>
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">
 		</script>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -37,7 +37,9 @@
 						||
 						<a href="#" ng-click="removerProjeto(projeto.id_projeto)"> Remover </a> 
 						||
-						<a href="#" ng-click="preparaAtualizarProjeto(projeto.id_projeto)"> Atualizar </a> 
+						<a href="#" ng-click="preparaAtualizarProjeto(projeto.id_projeto)"> Editar </a> 
+						||
+						<a href="#" ng-click="mostrarTarefas(projeto.id_projeto)"> Mostrar Tarefas</a> 
 					</td>
 				</tr>
 			</table>
@@ -52,9 +54,7 @@
 
 			<button type="button" class="btn btn-info" ng-click="inserirProjeto()"> Inserir </button>
 			<button type="button" class="btn btn-info" ng-click="atualizarProjeto()"> Atualizar </button>
-			<script>
-			
-			</script>
+
 			</div>
 	</body>
 </html>

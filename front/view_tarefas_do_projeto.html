@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">
+		</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="controller.js"> </script>
+		<meta charset="utf-8"/>
+	</head>
+	<body ng-app="crudComBD" ng-controller="controlador">
+		<div class="container-fluid" ng-init="consultaTarefasUsuario_Projeto($scope.id_projeto)">
+
+			<h2> Controle de Tarefas </h2>
+			<table class="table"> <!-- tabela -->
+				<tr> <!-- table row (nova linha)--> 
+					<!-- table header (célula de cabeçalho)-->
+					<th> ID Tarefa</th>
+					<th> ID Projeto</th>
+					<th> ID Usuário</th>
+					<th> Nome </th> 
+					<th> Prioridade </th> 
+					<th> Descrição </th> 
+					<th> Data Inicio </th> 
+					<th> Data Entrega </th> 
+					<th> FG Ativo </th> 
+				</tr>
+				<tr ng-repeat="tarefa in listaTarefas">
+					<td> {{tarefa.id_tarefa}} </td> 
+					<td> {{tarefa.id_projeto}} </td> 
+					<td> {{tarefa.id_usuario}} </td> 
+					<td> {{tarefa.nome}} </td> 
+					<td> {{tarefa.prioridade}} </td> 
+					<td> {{tarefa.descricao}} </td> 
+					<td> {{tarefa.data_inicio}} </td> 
+					<td> {{tarefa.data_entrega}} </td> 
+					<td> {{tarefa.fg_ativo}} </td> 
+					<td> 
+						<a href="#" ng-click="finalizarTarefa(tarefa.id_tarefa)"> Finalizar </a> 
+						||
+						<a href="#" ng-click="removerTarefa(tarefa.id_tarefa)"> Remover </a> 
+						||
+						<a href="#" ng-click="preparaAtualizarTarefa(tarefa.id_tarefa)"> Editar </a> 
+						||
+						<a href="#" ng-click="mostrarSubtarefa(tarefa.id_tarefa)"> Mostrar Subtarefas</a> 
+					</td>
+				</tr>
+			</table>
+			<h2> Informações do Tarefa</h2>
+
+			<br/>ID Projeto<input type="number" class="form-control" ng-model="tarefa.id_projeto"/>
+			<br/>ID Usuário<input type="number" class="form-control" ng-model="tarefa.id_usuario"/>
+			<br/>Nome <input type="text" class="form-control" ng-model="tarefa.nome"/>	
+			<br/>Prioridade <input type="number" class="form-control" ng-model="tarefa.prioridade"/>	
+			<br/>Descrição <input type="text" class="form-control" ng-model="tarefa.descricao"/>	
+			<br/>Data Início<input type="text" class="form-control" ng-model="tarefa.data_inicio"/>	
+			<br/>Data Entrega<input type="text" class="form-control" ng-model="tarefa.data_entrega"/>	
+			<br/>
+
+			<button type="button" class="btn btn-info" ng-click="inserirTarefa()"> Inserir </button>
+			<button type="button" class="btn btn-info" ng-click="atualizarTarefa()"> Atualizar </button>
+		</div>
+	</body>
+</html>
