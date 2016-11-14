@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+                <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+                <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+                <script src="controller.js"> </script>                        
+                <meta charset="utf-8"/> 
 
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+    		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<!-- Website CSS style -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
 		<!-- Website Font style -->
-	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-
+	    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 		<!-- Google Fonts -->
-	  <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+	  	<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
 		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
-
 		<title>Castrastro</title>
+
     <style media="screen">
       @import url(http://fonts.googleapis.com/css?family=Roboto);
 
@@ -84,26 +89,41 @@
       }
   </style>
 
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-                    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-                    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-                   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-                   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-                   <script src="controller.js"> </script>                        
-                  <meta charset="utf-8"/> 
-  </head>
+ </head>
 
-	<body ng-app="crudComBD" ng-controller="controlador">
+ 	<body ng-app="crudComBD" ng-controller="controlador">
+
+		<nav class="navbar navbar-default navbar-fixed-top">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-brand" href="#">ORGANIZE</a>
+		    </div>
+		    <div class="collapse navbar-collapse" id="myNavbar">
+		      <ul class="nav navbar-nav navbar-right">
+			
+		      </ul>
+		    </div>
+		  </div>
+		</nav>
+		</br>
+		</br>
+		</br>
 		<div class="container">
 			<div class="row main">
-				<div class="panel-heading">
+			   <div class="panel-heading">
 
-            <div class="jumbotron" style="background:#3B5DAC;">
-                 <div class="panel-title text-center">
-	               		<h1 class="title">Cadastre-se</h1>
-	               	</div>
-	            </div>
-          </div>
+            			<div class="jumbotron" style="background:#3B5DAC;">
+                 			<div class="panel-title text-center">
+	               				<h1 class="title">Cadastro</h1>
+	               			</div>
+	            		</div>
+         		    </div>
+
 				<div class="main-login main-center">
 
 						<div class="form-group">
