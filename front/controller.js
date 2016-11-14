@@ -231,6 +231,7 @@
 			$http.post('http://localhost:3000/createTarefa', $scope.tarefa )
 			.then(function (response){
 				alert("Inserido com sucesso");
+				$scope.tarefa = {};
 			}
 			);
 			
@@ -251,6 +252,10 @@
 
 			var posicao = retornaIndiceTarefa(id_tarefa);
 			$scope.tarefa = $scope.listaTarefas[posicao];
+		}
+
+		$scope.editarTarefa2 = function(id){
+			$scope.tarefa = { id_projeto: id, nome:'Nome da Tarefa', prioridade: 1, descricao: 'Descrição da Tarefa', data_inicio: '1/1/1', data_entrega: '1/1/1' }; 
 		}
 		////////////////////
 
@@ -313,6 +318,10 @@
 			atualiza_Tabela_Subtarefas_Tarefa_Usuario(id_tarefa);
 		};
 
+		$scope.editarSubtarefa= function(id){
+			$scope.subtarefa = { id_tarefa: id, nome:'Nome da Subtarefa', prioridade: 1, descricao: 'Descrição da Subtarefa', data_inicio: '1/1/1', data_entrega: '1/1/1' }; 
+		}
+
 
 		////////////////////////////////////////////////////////////////
 
@@ -324,7 +333,8 @@
 			if (resposta == true){
 				$http.delete('http://localhost:3000/deleteSubTarefa/' + id_subtarefa )
 				.then(function (response){
-					atualizaTabelaSubTarefas_Usuario();
+					alert("Subtarefa removida com sucesso");
+				       atualiza_Tabela_Subtarefas_Tarefa_Usuario(); 
 				});
 			}
 		};
@@ -340,8 +350,8 @@
 
 			$http.put('http://localhost:3000/finalizarSubtarefa', $scope.listaSubTarefas[posicao])
 			.then(function (response){
-				atualizaTabelaSubTarefas_Usuario();
-				alert("Atualização com sucesso");
+				alert("Subtarfa Finalizada com sucesso");
+				atualiza_Tabela_Subtarefas_Tarefa_Usuario(); 
 			});
 		};	
 		///////////////////////////////////////////////////////////////////
@@ -351,10 +361,9 @@
 		$scope.inserirSubTarefa = function(){
 			$http.post('http://localhost:3000/createSubTarefa', $scope.subtarefa )
 			.then(function (response){
-				atualizaTabelaSubTarefas_Usuario();
 				alert("Inserção com sucesso");
-			}
-			);
+				atualiza_Tabela_Subtarefas_Tarefa_Usuario(); 
+			});
 			
 		};
 
@@ -365,8 +374,8 @@
 		$scope.atualizarSubTarefa = function(){
 			$http.put('http://localhost:3000/updateSubTarefa', $scope.subtarefa )
 			.then(function (response){
-				atualizaTabelaSubTarefas_Usuario();
 				alert("Atualização com sucesso");
+				atualiza_Tabela_Subtarefas_Tarefa_Usuario(); 
 			});
 		};	
 

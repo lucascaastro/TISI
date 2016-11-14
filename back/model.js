@@ -516,7 +516,7 @@ app.post('/retrieveTarefasUsuario_Projeto', urlencodedParser, function(req, res)
           return res.status(500).json({ success: false, data: err});
         }
 
-         client.query('SELECT t.id_tarefa, t.id_projeto, t.id_usuario, t.nome, t.descricao, t.data_inicio, t.data_entrega from tb_tarefas t inner join tb_usuarios u on (t.id_usuario = u.id_usuario) inner join tb_projetos p on ( p.id_usuario = u.id_usuario) where u.id_usuario = $1 and p.id_projeto = $2',[id, id_projeto], function(err,result){
+         client.query('SELECT t.id_tarefa, t.id_projeto, t.id_usuario, t.nome, t.prioridade, t.descricao, t.data_inicio, t.data_entrega from tb_tarefas t inner join tb_projetos p on (p.id_projeto = t.id_projeto )  where p.id_usuario = $1 and p.id_projeto = $2 and p.fg_ativo = 1',[id, id_projeto], function(err,result){
 
             done();
 
