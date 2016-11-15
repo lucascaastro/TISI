@@ -183,6 +183,7 @@
 	<body ng-app="crudComBD" ng-controller="controlador">
 
 		<nav class="navbar navbar-default navbar-fixed-top">
+
 		  <div class="container-fluid">
 		    <div class="navbar-header">
 		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -192,6 +193,7 @@
 		      </button>
 		      <a class="navbar-brand" href="#">ORGANIZE</a>
 		    </div>
+
 		    <div class="collapse navbar-collapse" id="myNavbar">
 		      <ul class="nav navbar-nav navbar-right">
 			<li><a href="view_projetos_tarefas_subtarefas.html">Dashboard</a></li>
@@ -200,48 +202,98 @@
 			<li><a href="view_minha_conta.html">Minha Conta</a></li>
 		      </ul>
 		    </div>
+
 		  </div>
 		</nav>
+
 		<div class="container-fluid" data-ng-init="consultaMinhaConta()">
+
 			</br>
 			</br>
 			</br>
-			<h2> Meus Dados </h2>
-			<table class="table"> <!-- tabela -->
-				<tr> <!-- table row (nova linha)--> 
-					<!-- table header (célula de cabeçalho)-->
-					<th> Nome </th> 
-					<th> Sobrenome </th> 
-					<th> Username </th> 
-				</tr>
-				<tr ng-repeat="dado in MeusDados">
-					<td> {{dado.nome}} </td> 
-					<td> {{dado.sobrenome}} </td> 
-					<td> {{dado.username}} </td> 
-					<td> 
-						<a href="#" ng-click="removerConta(dado.id_usuario)"> Remover Minha Conta</a> 
-						||
-						<a href="#" ng-click="preparaAtualizar_MinhaConta(dado.id_usuario)"> Editar Dados </a> 
-					</td>
-				</tr>
-			</table>
-			<h2> Informações do Usuario</h2>
+			</br>
+			</br>
 
-			<br/>Nome <input type="text" class="form-control" ng-model="dado.nome"/>	
-			<br/>Sobrenome <input type="text" class="form-control" ng-model="dado.sobrenome"/>	
-			<br/>Username <input type="text" class="form-control" ng-model="dado.username"/>	
-			<br/>
+			 <div class="col-sm-36">
+				<div class="bs-calltoaction bs-calltoaction-default">
+                    			<div class="row">
+                        		    <div class="col-md-7 cta-contents">
+                            			<h1 class="cta-title">Meus Dados</h1>
+                        		    </div>
 
-			<button type="button" class="btn btn-info" ng-click="atualizarMinhaConta()"> Atualizar </button>
+						<div class="col-md-3 cta-button">
+						    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Meus_Dados');">Visualizar</a>
+		    				    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Info_Dados');">Info</a>
+						    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Trocar_Senha');">Trocar Senha</a>
+						</div>
+                     			</div>
+                		</div>
+			</div>
 
-			<h2> Trocar Senha </h2>
+			<div id="Meus_Dados">
+				</br>
+				</br>
+				<table class="table"> <!-- tabela -->
+					<tr> <!-- table row (nova linha)--> 
+						<!-- table header (célula de cabeçalho)-->
+						<th> Nome </th> 
+						<th> Sobrenome </th> 
+						<th> Username </th> 
+					</tr>
+					<tr ng-repeat="dado in MeusDados">
+						<td> {{dado.nome}} </td> 
+						<td> {{dado.sobrenome}} </td> 
+						<td> {{dado.username}} </td> 
+						<td> 
+							<a href="#" ng-click="removerConta(dado.id_usuario)"> Remover Minha Conta</a> 
+							||
+							<a href="#" ng-click="preparaAtualizar_MinhaConta(dado.id_usuario)"> Editar Dados </a> 
+						</td>
+					</tr>
+				</table>
+			 </div>
 
-			<br/>Nova Senha<input type="password" class="form-control" ng-model="dado.nova_senha"/>	
-			<br/>Confirme Nova Senha <input type="password" class="form-control" ng-model="dado.confirma_nova_senha"/>	
-			<br/>
+			<div id="Info_Dados">
+				</br>
+				<h2> Informações do Usuario</h2>
 
-			<button type="button" class="btn btn-info" ng-click="atualizarMinhaSenha()"> Atualizar </button>
+				<br/>Nome <input type="text" class="form-control" ng-model="dado.nome"/>	
+				<br/>Sobrenome <input type="text" class="form-control" ng-model="dado.sobrenome"/>	
+				<br/>Username <input type="text" class="form-control" ng-model="dado.username"/>	
+				<br/>
+
+				<button type="button" class="btn btn-info" ng-click="atualizarMinhaConta()"> Atualizar </button>
+				</br>
+				</br>
 
 			</div>
+
+			<div id="Trocar_Senha">
+				<h2> Trocar Senha </h2>
+
+				<br/>Nova Senha<input type="password" class="form-control" ng-model="dado.nova_senha"/>	
+				<br/>Confirme Nova Senha <input type="password" class="form-control" ng-model="dado.confirma_nova_senha"/>	
+				<br/>
+
+				<button type="button" class="btn btn-info" ng-click="atualizarMinhaSenha()"> Atualizar </button>
+				</br>
+				</br>
+				</br>
+				</br>
+			</div>
+
+	</div>
+
+		<script>
+ 			function abrefecha(obj){
+				var el = document.getElementById(obj);
+				  if(el.style.display != "block"){
+				      el.style.display = "block";
+				    }
+					else{
+				     el.style.display = "none";
+				}
+			}
+		</script>
 	</body>
 </html>

@@ -209,7 +209,21 @@
 			</br>
 			</br>
 			</br>
-			<h2> Minhas Tarefas </h2>
+			 <div class="col-sm-36">
+				<div class="bs-calltoaction bs-calltoaction-default">
+                    			<div class="row">
+                        		    <div class="col-md-7 cta-contents">
+                            			<h1 class="cta-title">Minhas Tarefas</h1>
+                        		    </div>
+
+						<div class="col-md-3 cta-button">
+						    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Minhas_Tarefas');">Visualizar</a>
+						</div>
+                     			</div>
+                		</div>
+			</div>
+
+		      <div id="Minhas_Tarefas">
 			<table class="table"> <!-- tabela -->
 				<tr> <!-- table row (nova linha)--> 
 					<!-- table header (célula de cabeçalho)-->
@@ -235,11 +249,26 @@
 					</td>
 				</tr>
 			</table>
+		     </div>
 		</div>
 
 		<div class="container-fluid" >
 
-			<h2> Subtarefas </h2>
+			 <div class="col-sm-36">
+				<div class="bs-calltoaction bs-calltoaction-default">
+                    			<div class="row">
+                        		    <div class="col-md-7 cta-contents">
+                            			<h1 class="cta-title">Subtarefas</h1>
+                        		    </div>
+
+						<div class="col-md-3 cta-button">
+						    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Minhas_Subtarefas');">Visualizar</a>
+						</div>
+                     			</div>
+                		</div>
+			</div>
+
+		       <div id="Minhas_Subtarefas">
 			<table class="table"> <!-- tabela -->
 				<tr> <!-- table row (nova linha)--> 
 					<!-- table header (célula de cabeçalho)-->
@@ -261,6 +290,19 @@
 						<a href="#" ng-click="removerSubTarefa(subtarefa.id_subtarefa)"> Remover </a> 
 				</tr>
 			</table>
+		       </div>
 		   </div>
+
+		<script>
+ 			function abrefecha(obj){
+				var el = document.getElementById(obj);
+				  if(el.style.display != "block"){
+				      el.style.display = "block";
+				    }
+					else{
+				     el.style.display = "none";
+				}
+			}
+		</script>
 	</body>
 </html>

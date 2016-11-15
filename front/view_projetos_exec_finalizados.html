@@ -3,6 +3,7 @@
 	<head>
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">
 		</script>
+		<link rel="shortcut icon" href="favicon.ico" />
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -207,7 +208,25 @@
 			</br>
 			</br>
 			</br>
-			<h2> Projetos em Execução </h2>
+			</br>
+			</br>			
+			</br>
+			</br>
+			
+			<div class="col-sm-36">
+				<div class="bs-calltoaction bs-calltoaction-default">
+                    <div class="row">
+                        <div class="col-md-7 cta-contents">
+                            <h1 class="cta-title">Projetos em Execução</h1>
+                        </div>
+                        <div class="col-md-3 cta-button">
+                            <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('ProjetosExecucao');">Visualizar</a>
+		    </div>
+                     </div>
+                </div>
+			</div>
+			
+			<div id="ProjetosExecucao" style="display:none;">
 			<table class="table"> <!-- tabela -->
 				<tr> <!-- table row (nova linha)--> 
 					<!-- table header (célula de cabeçalho)-->
@@ -230,11 +249,27 @@
 					</td>
 				</tr>
 			</table>
+			</br>
+			</br>
+		</div>
 		</div>
 
 		<div class="container-fluid" data-ng-init="consultaProjetosFinalizados_Usuario()">
 
-			<h2> Projetos Finalizados</h2>
+			<div class="col-sm-36">
+				<div class="bs-calltoaction bs-calltoaction-default">
+                    <div class="row">
+                        <div class="col-md-7 cta-contents">
+                            <h1 class="cta-title">ProjetosFinalizados</h1>
+                        </div>
+                        <div class="col-md-3 cta-button">
+                            <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('ProjetosFinalizados');">Visualizar</a>
+					    </div>
+                     </div>
+                </div>
+			</div>
+			
+			<div id="ProjetosFinalizados" style="display:none;">
 			<table class="table"> <!-- tabela -->
 				<tr> <!-- table row (nova linha)--> 
 					<!-- table header (célula de cabeçalho)-->
@@ -252,8 +287,25 @@
 					<td> {{projeto.fg_ativo}} </td> 
 					<td> 
 						<a href="#" ng-click="removerProjeto(projeto.id_projeto)"> Remover </a> 
+					</td>
+				</tr>
 			</table>
-		</div>
+			</br>
+			</br>
+			</div>
+			</div>
+		
+		<script>
+ 			function abrefecha(obj){
+				var el = document.getElementById(obj);
+				  if(el.style.display != "block"){
+				      el.style.display = "block";
+				    }
+					else{
+				     el.style.display = "none";
+				}
+			}
+		</script>
 
 	</body>
 </html>
