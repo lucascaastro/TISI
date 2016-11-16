@@ -226,26 +226,24 @@
                 </div>
 			</div>
 			
-			<div id="ProjetosExecucao" style="display:none;">
-			<table class="table"> <!-- tabela -->
+			<div clas="table-reponsive" id="ProjetosExecucao" style="display:none;">
+			<table class="table table-hover"> <!-- tabela -->
 				<tr> <!-- table row (nova linha)--> 
 					<!-- table header (célula de cabeçalho)-->
 					<th> Nome </th> 
 					<th> Descrição </th> 
 					<th> Data Inicio </th> 
 					<th> Data Entrega </th> 
-					<th> FG Ativo </th> 
 				</tr>
 				<tr ng-repeat="projeto in listaProjetos">
 					<td> {{projeto.nome}} </td> 
 					<td> {{projeto.descricao}} </td> 
 					<td> {{projeto.data_inicio}} </td> 
 					<td> {{projeto.data_entrega}} </td> 
-					<td> {{projeto.fg_ativo}} </td> 
 					<td> 
-						<a href="#" ng-click="finalizarProjeto(projeto.id_projeto)"> Finalizar</a> 
-						||
-						<a href="#" ng-click="removerProjeto(projeto.id_projeto)"> Remover </a> 
+						<a href="#" class="btn btn-info btn-sm" ng-click="finalizarProjeto(projeto.id_projeto)"> Finalizar</a> 
+						
+						<a href="#" class="btn btn-info btn-sm" ng-click="removerProjeto(projeto.id_projeto)"> Remover </a> 
 					</td>
 				</tr>
 			</table>
@@ -269,24 +267,22 @@
                 </div>
 			</div>
 			
-			<div id="ProjetosFinalizados" style="display:none;">
-			<table class="table"> <!-- tabela -->
+			<div class="table-responsive" id="ProjetosFinalizados" style="display:none;">
+			<table class="table table-hover"> <!-- tabela -->
 				<tr> <!-- table row (nova linha)--> 
 					<!-- table header (célula de cabeçalho)-->
 					<th> Nome </th> 
 					<th> Descrição </th> 
 					<th> Data Inicio </th> 
 					<th> Data Entrega </th> 
-					<th> FG Ativo </th> 
 				</tr>
 				<tr ng-repeat="projeto in listaProjetosFinalizados">
 					<td> {{projeto.nome}} </td> 
 					<td> {{projeto.descricao}} </td> 
 					<td> {{projeto.data_inicio}} </td> 
 					<td> {{projeto.data_entrega}} </td> 
-					<td> {{projeto.fg_ativo}} </td> 
 					<td> 
-						<a href="#" ng-click="removerProjeto(projeto.id_projeto)"> Remover </a> 
+						<a href="#" class="btn btn-info btn-sm" g-click="removerProjeto(projeto.id_projeto)"> Remover </a> 
 					</td>
 				</tr>
 			</table>
