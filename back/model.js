@@ -14,7 +14,6 @@ var app = express();
 var User = {id:-1};
 
 
-
 app.listen(3000);
 
 app.use(core_use());
@@ -53,7 +52,9 @@ app.post('/login', urlencodedParser, function (req, res) {
 
        var username=req.body.username;
        var senha=req.body.senha;
-       var confirmaSenha =req.body.confirmaSenha;
+
+	console.log('username: ', username);
+	console.log('senha: ', senha);
       
        //var User = {id:-1};
        var usuario_existe;
@@ -61,7 +62,6 @@ app.post('/login', urlencodedParser, function (req, res) {
 
 	// Validação dos Dados
 	//req.check('username', 'Nome de usuário Inválido.').isEmail();
-	//req.check('senha', 'Senha inválida').isLength({min:4}).equals(confirmaSenha);
 	req.check('senha', 'Senha inválida').isLength({min:4});
 
 	// Verificar se houve erros na validação
@@ -71,7 +71,7 @@ app.post('/login', urlencodedParser, function (req, res) {
 	if(errors){
 	  req.session.erros = errors;
 	  console.log(errors);
-	  res.send('Not Working');
+	  res.send('0');
 	}
 	else{
 	   //res.send('Working');
@@ -110,16 +110,17 @@ app.post('/login', urlencodedParser, function (req, res) {
 
 					  console.log('id_usuario no banco:' + result.rows[0].id_usuario);
 					  User.id = result.rows[0].id_usuario;
+					  console.log('User.id', User.id);
 					  req.session.id_usuario = result.rows[0].id_usuario;
 
 				   
+            			 	  res.send('1');
 				 });
 
-				 res.send('Usuario Existe e sessão iniciada');
 			  }
 			  else{
-				res.send('Usuario Não existe\n');
-			  }
+			        res.send('2');
+			}
 		  });
 
   	  }); // end connect
@@ -497,6 +498,41 @@ app.post('/retrieveTarefasFinalizadasUsuario_Projeto', urlencodedParser, functio
 
 });
 
+// Seleciona todas as Tarefas do Usuario dentro de um Projeto
+// -- Funciona
+app.post('/retrieveTarefasUsuario_Projeto', urlencodedParser, function(req, res) {
+
+	var id = User.id; 
+	var id_projeto = req.body.id_projeto; 
+
+	console.log('User.id: ', id);
+	console.log('id_projeto: ', id_projeto);
+	
+    pool.connect(function(err, client, done) {
+
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+         client.query('SELECT t.id_tarefa, t.id_projeto, t.id_usuario, t.nome, t.prioridade, t.descricao, t.data_inicio, t.data_entrega from tb_tarefas t inner join tb_projetos p on (p.id_projeto = t.id_projeto )  where p.id_usuario = $1 and p.id_projeto = $2 and p.fg_ativo = 1',[id, id_projeto], function(err,result){
+
+            done();
+
+            if(err){
+                return console.error('error running query', err);
+            }
+
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.json(result.rows);
+
+        });
+
+    });
+
+});
+
 
 
 // finaliza uma Tarefa de um Usuario dentro de um Projeto, incluindo todas suas
@@ -735,13 +771,13 @@ app.get('/retrieveSubtarefasFinalizadas_Usuario', function(req, res) {
 
 // Seleciona todas as Subtarefas do Usuario dentro de um
 // Tarefa -- Funciona  
-//app.post('/retrieveSubtarefas_Tarefa_Usuario', urlencodedParser, function(req, res) {
-app.get('/retrieveSubtarefas_Tarefa_Usuario', function(req, res) {
+app.post('/retrieveSubtarefas_Tarefa_Usuario', urlencodedParser, function(req, res) {
+//app.get('/retrieveSubtarefas_Tarefa_Usuario', function(req, res) {
 
 	//var username = req.body.username; 
         var id = User.id;
-	//var id_tarefa = req.body.id_tarefa; 
-	var id_tarefa = req.params.id_tarefa; 
+	var id_tarefa = req.body.id_tarefa; 
+	//var id_tarefa = req.params.id_tarefa; 
 
 
     pool.connect(function(err, client, done) {
@@ -921,7 +957,8 @@ app.delete('/deleteSubTarefa/:id_subtarefa', function(req, res) {
 });
 
 
-////////////////////////////////////////////////CRUD Usuario 
+////////////////////////////CRUD Usuario 
+
 
 // Cadastro  -- Funciona
 app.post('/cadastroUsuario', urlencodedParser, function (req, res) {
@@ -948,7 +985,8 @@ app.post('/cadastroUsuario', urlencodedParser, function (req, res) {
 	if(errors){
 	  req.session.erros = errors;
 	  console.log(errors);
-	  res.send('Not Working');
+	  //res.send('Not Working');
+	  res.send('0');
 	}
 	else{
 
@@ -994,10 +1032,11 @@ app.post('/cadastroUsuario', urlencodedParser, function (req, res) {
 				  }
 					
 			  	  });
-				 res.send('Usuario Criado');
+
+				 res.send('1');
 			  }
 			  else{
-				res.send('Usuario já existe');
+				res.send('2');
 			  }
 		  });
 
@@ -1005,8 +1044,10 @@ app.post('/cadastroUsuario', urlencodedParser, function (req, res) {
   } // end else
 });
 
-// Retrieve -- Não usar
-app.get('/retrieveUsuarios', function(req, res) {
+// Minha Conta 
+app.get('/retrieveMinhaConta', function(req, res) {
+
+    var id = User.id;
 
     pool.connect(function(err, client, done) {
 
@@ -1016,7 +1057,7 @@ app.get('/retrieveUsuarios', function(req, res) {
           return res.status(500).json({ success: false, data: err});
         }
 
-         client.query('SELECT * FROM tb_usuarios ORDER BY id_usuario ASC', function(err,result){
+         client.query('SELECT * FROM tb_usuarios where id_usuario = $1',[id], function(err,result){
 
             done();
 
@@ -1032,6 +1073,37 @@ app.get('/retrieveUsuarios', function(req, res) {
     });
 
 });
+
+app.get('/retrieveUsuarios', function(req, res) {
+
+    pool.connect(function(err, client, done) {
+
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+         client.query('SELECT * FROM tb_usuarios', function(err,result){
+
+            done();
+
+            if(err){
+                return console.error('error running query', err);
+            }
+
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.json(result.rows);
+
+        });
+
+    });
+
+});
+
+
+
+
 
 // Update -- Funciona
 app.put('/updateUsuario', urlencodedParser, function(req, res) {
@@ -1063,6 +1135,46 @@ app.put('/updateUsuario', urlencodedParser, function(req, res) {
     res.send('Usuario atualizado com sucesso');
 
 });
+
+// Update Senha
+app.put('/updateNovaSenha', urlencodedParser, function(req, res) {
+
+	var id = User.id;
+	var senha = req.body.nova_senha;
+	var confirmaSenha = req.body.confirma_nova_senha;
+	console.log('senha: ', senha);
+	console.log('confirma senha: ', confirmaSenha);
+
+	// Validação dos Dados
+	if( senha != confirmaSenha ){
+	  res.send('0');
+	}
+	else{
+
+	    pool.connect(function(err, client, done) {
+		// Handle connection errors
+		if(err) {
+		  done();
+		  console.log(err);
+		  return res.status(500).send(json({ success: false, data: err}));
+		}
+
+		client.query('update tb_usuarios set  senha= \'' + senha + '\'  where id_usuario = ' + id,  
+		  function(err, result){
+
+		  done();
+
+		  if(err){
+			return console.error('error running query', err);
+		  } 
+
+		});
+	      });
+	
+	    res.send('1');
+	}
+});
+
 
 // Delete -- Funciona
 app.delete('/deleteUsuario/:id_usuario', function(req, res) {

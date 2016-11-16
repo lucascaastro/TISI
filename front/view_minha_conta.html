@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">
+		</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="controller.js"> </script>
+		<meta charset="utf-8"/>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		  <!-- Website CSS style -->
+		  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+		  <!-- Website Font style -->
+		    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+		  <!-- Google Fonts -->
+		  <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+		  <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+		  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+		  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+		    
+
+		  <style media="screen">
+
+		    @import url(http://fonts.googleapis.com/css?family=Roboto);
+
+		    .body, .html{
+		      height: 100%;
+		      background-repeat: no-repeat;
+		      background-color: white;
+		      font-family: 'Roboto', sans-serif;
+		    }
+
+		    .bs-calltoaction{
+		      position: relative;
+		      width:auto;
+		      padding: 15px 25px;
+		      border: 1px solid black;
+		      margin-top: 10px;
+		      margin-bottom: 10px;
+		      border-radius: 5px;
+		  }
+
+		      .bs-calltoaction > .row{
+			  display:table;
+			  width: calc(100% + 30px);
+		      }
+
+			  .bs-calltoaction > .row > [class^="col-"],
+			  .bs-calltoaction > .row > [class*=" col-"]{
+			      float:none;
+			      display:table-cell;
+			      vertical-align:middle;
+			  }
+
+			      .cta-contents{
+				  padding-top: 10px;
+				  padding-bottom: 10px;
+			      }
+
+				  .cta-title{
+				      margin: 0 auto 15px;
+				      padding: 0;
+				  }
+
+				  .cta-desc{
+				      padding: 0;
+				  }
+
+				  .cta-desc p:last-child{
+				      margin-bottom: 0;
+				  }
+
+			      .cta-button{
+				  padding-top: 10px;
+				  padding-bottom: 10px;
+			      }
+
+		  @media (max-width: 991px){
+		      .bs-calltoaction > .row{
+			  display:block;
+			  width: auto;
+		      }
+
+			  .bs-calltoaction > .row > [class^="col-"],
+			  .bs-calltoaction > .row > [class*=" col-"]{
+			      float:none;
+			      display:block;
+			      vertical-align:middle;
+			      position: relative;
+			  }
+
+			  .cta-contents{
+			      text-align: center;
+			  }
+		  }
+
+
+
+		  .bs-calltoaction.bs-calltoaction-default{
+		      color: #333;
+		      background-color: #fff;
+		      border-color: #ccc;
+		  }
+
+		  .bs-calltoaction.bs-calltoaction-primary{
+		      color: #fff;
+		      background-color: #337ab7;
+		      border-color: #2e6da4;
+		  }
+
+		  .bs-calltoaction.bs-calltoaction-info{
+		      color: #fff;
+		      background-color: #5bc0de;
+		      border-color: #46b8da;
+		  }
+
+		  .bs-calltoaction.bs-calltoaction-success{
+		      color: #fff;
+		      background-color: #5cb85c;
+		      border-color: #4cae4c;
+		  }
+
+		  .bs-calltoaction.bs-calltoaction-warning{
+		      color: #fff;
+		      background-color: #f0ad4e;
+		      border-color: #eea236;
+		  }
+
+		  .bs-calltoaction.bs-calltoaction-danger{
+		      color: #fff;
+		      background-color: #d9534f;
+		      border-color: #d43f3a;
+		  }
+
+		  .bs-calltoaction.bs-calltoaction-primary .cta-button .btn,
+		  .bs-calltoaction.bs-calltoaction-info .cta-button .btn,
+		  .bs-calltoaction.bs-calltoaction-success .cta-button .btn,
+		  .bs-calltoaction.bs-calltoaction-warning .cta-button .btn,
+		  .bs-calltoaction.bs-calltoaction-danger .cta-button .btn{
+		      border-color:#fff;
+		  }
+		  
+		  .btn {
+		      padding: 10px 20px;
+		      background-color: #333;
+		      color: #f1f1f1;
+		      border-radius: 0;
+		      transition: .2s;
+		  }
+		  .navbar {
+		      font-family: Montserrat, sans-serif;
+		      margin-bottom: 0;
+		      background-color: #1874CD;
+		      border: 0;
+		      font-size: 11px !important;
+		      letter-spacing: 4px;
+		      opacity: 0.9;
+		  }
+		  .navbar li a, .navbar .navbar-brand {
+		      color: #d5d5d5 !important;
+		  }
+		  .navbar-nav li a:hover {
+		      color: #009ACD !important;
+		  }
+		  .navbar-nav li.active a {
+		      color: #fff !important;
+		      background-color: #29292c !important;
+		  }
+		  .navbar-default .navbar-toggle {
+		      border-color: transparent;
+		  }
+		  </style>
+	</head>
+
+	<body ng-app="crudComBD" ng-controller="controlador">
+
+		<nav class="navbar navbar-default navbar-fixed-top">
+
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-brand" href="#">ORGANIZE</a>
+		    </div>
+
+		    <div class="collapse navbar-collapse" id="myNavbar">
+		      <ul class="nav navbar-nav navbar-right">
+			<li><a href="view_projetos_tarefas_subtarefas.html">Dashboard</a></li>
+			<li><a href="view_projetos_exec_finalizados.html">Meus Projetos</a></li>
+			<li><a href="view_tarefas_subtarefas.html">Minhas Tarefas</a></li>
+			<li><a href="view_minha_conta.html">Minha Conta</a></li>
+		      </ul>
+		    </div>
+
+		  </div>
+		</nav>
+
+		<div class="container-fluid" data-ng-init="consultaMinhaConta()">
+
+			</br>
+			</br>
+			</br>
+			</br>
+			</br>
+
+			 <div class="col-sm-36">
+				<div class="bs-calltoaction bs-calltoaction-default">
+                    			<div class="row">
+                        		    <div class="col-md-7 cta-contents">
+                            			<h1 class="cta-title">Meus Dados</h1>
+                        		    </div>
+
+						<div class="col-md-3 cta-button">
+						    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Meus_Dados');">Visualizar</a>
+		    				    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Info_Dados');">Info</a>
+						    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Trocar_Senha');">Trocar Senha</a>
+						</div>
+                     			</div>
+                		</div>
+			</div>
+
+			<div id="Meus_Dados">
+				</br>
+				</br>
+				<table class="table"> <!-- tabela -->
+					<tr> <!-- table row (nova linha)--> 
+						<!-- table header (célula de cabeçalho)-->
+						<th> Nome </th> 
+						<th> Sobrenome </th> 
+						<th> Username </th> 
+					</tr>
+					<tr ng-repeat="dado in MeusDados">
+						<td> {{dado.nome}} </td> 
+						<td> {{dado.sobrenome}} </td> 
+						<td> {{dado.username}} </td> 
+						<td> 
+							<a href="#" ng-click="removerConta(dado.id_usuario)"> Remover Minha Conta</a> 
+							||
+							<a href="#" ng-click="preparaAtualizar_MinhaConta(dado.id_usuario)"> Editar Dados </a> 
+						</td>
+					</tr>
+				</table>
+			 </div>
+
+			<div id="Info_Dados">
+				</br>
+				<h2> Informações do Usuario</h2>
+
+				<br/>Nome <input type="text" class="form-control" ng-model="dado.nome"/>	
+				<br/>Sobrenome <input type="text" class="form-control" ng-model="dado.sobrenome"/>	
+				<br/>Username <input type="text" class="form-control" ng-model="dado.username"/>	
+				<br/>
+
+				<button type="button" class="btn btn-info" ng-click="atualizarMinhaConta()"> Atualizar </button>
+				</br>
+				</br>
+
+			</div>
+
+			<div id="Trocar_Senha">
+				<h2> Trocar Senha </h2>
+
+				<br/>Nova Senha<input type="password" class="form-control" ng-model="dado.nova_senha"/>	
+				<br/>Confirme Nova Senha <input type="password" class="form-control" ng-model="dado.confirma_nova_senha"/>	
+				<br/>
+
+				<button type="button" class="btn btn-info" ng-click="atualizarMinhaSenha()"> Atualizar </button>
+				</br>
+				</br>
+				</br>
+				</br>
+			</div>
+
+	</div>
+
+		<script>
+ 			function abrefecha(obj){
+				var el = document.getElementById(obj);
+				  if(el.style.display != "block"){
+				      el.style.display = "block";
+				    }
+					else{
+				     el.style.display = "none";
+				}
+			}
+		</script>
+	</body>
+</html>
