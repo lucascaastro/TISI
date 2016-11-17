@@ -93,97 +93,83 @@
 
  	<body ng-app="crudComBD" ng-controller="controlador">
 
-		<nav class="navbar navbar-default navbar-fixed-top">
+	<nav class="navbar navbar-inverse navbar-fixed-top">
 		  <div class="container-fluid">
 		    <div class="navbar-header">
-		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		      </button>
-		      <a class="navbar-brand" href="#">ORGANIZE</a>
+		      <a href="view_home.html" class="navbar-brand">Organize</a>
 		    </div>
-		    <div class="collapse navbar-collapse" id="myNavbar">
-		      <ul class="nav navbar-nav navbar-right">
-			
-		      </ul>
-		    </div>
+		    <ul class="nav navbar-nav">
+		    </ul>
+		    <ul class="nav navbar-nav navbar-right">
+		      <li><a href="view_login.html"><span class="glyphicon glyphicon-user"></span>  Login </a></li>
+		      <li><a href="view_cadastro.html"><span class="glyphicon glyphicon-th-list"></span> Cadastro </a></li>
+		    </ul>
 		  </div>
-		</nav>
+	</nav>	
+
 		</br>
 		</br>
 		</br>
-		<div class="container">
-			<div class="row main">
-			   <div class="panel-heading">
+		</br>
+			<div class="main-login main-center">
 
-            			<div class="jumbotron" style="background:#3B5DAC;">
-                 			<div class="panel-title text-center">
-	               				<h1 class="title">Cadastro</h1>
-	               			</div>
-	            		</div>
-         		    </div>
-
-				<div class="main-login main-center">
-
-						<div class="form-group">
-							<label for="nome" class="cols-sm-2 control-label">Nome</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" ng-model="usuario.nome" id="nome"  placeholder="Nome"/>
-								</div>
+					<div class="form-group">
+						<label for="nome" class="cols-sm-2 control-label">Nome</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" ng-model="usuario.nome" id="nome"  placeholder="Nome"/>
 							</div>
 						</div>
+					</div>
 
-						<div class="form-group">
-							<label for="nome" class="cols-sm-2 control-label">Sobrenome</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" ng-model="usuario.sobrenome" id="sobrenome"  placeholder="Nome"/>
-								</div>
+					<div class="form-group">
+						<label for="nome" class="cols-sm-2 control-label">Sobrenome</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" ng-model="usuario.sobrenome" id="sobrenome"  placeholder="Nome"/>
 							</div>
 						</div>
+					</div>
 
-						<div class="form-group">
-							<label for="username" class="cols-sm-2 control-label">Nome de Usuário</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" ng-model="usuario.username" id="username"  placeholder="Nome de Usuário"/>
-								</div>
+					<div class="form-group">
+						<label for="username" class="cols-sm-2 control-label">Nome de Usuário</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" ng-model="usuario.username" id="username"  placeholder="Nome de Usuário"/>
 							</div>
 						</div>
+					</div>
 
-						<div class="form-group">
-							<label for="password" class="cols-sm-2 control-label">Senha</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" ng-model="usuario.senha" id="password"  placeholder="Entre com a Senha"/>
-								</div>
+					<div class="form-group">
+						<label for="password" class="cols-sm-2 control-label">Senha</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+								<input type="password" class="form-control" ng-model="usuario.senha" id="password"  placeholder="Entre com a Senha"/>
 							</div>
 						</div>
+					</div>
 
-						<div class="form-group">
-							<label for="confirm" class="cols-sm-2 control-label">Confirmar Senha</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" ng-model="usuario.confirmaSenha" id="confirm"  placeholder="Confirme sua Senha"/>
-								</div>
+					<div class="form-group">
+						<label for="confirm" class="cols-sm-2 control-label">Confirmar Senha</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+								<input type="password" class="form-control" ng-model="usuario.confirmaSenha" id="confirm"  placeholder="Confirme sua Senha"/>
 							</div>
 						</div>
+					</div>
 
-						<div class="form-group ">
-							<button type="button" class="btn btn-primary btn-lg btn-block login-button" ng-click="cadastrarUsuario(usuario)">Registrar  </button>
-							<button type="button" class="btn btn-primary btn-lg btn-block login-button" ng-click="mostrarLogin()">Login</button>
-						</div>
-				         </div>
-				</div>
+					<div class="form-group ">
+						<button type="button" class="btn  btn-lg btn-block btn-info" ng-click="cadastrarUsuario(usuario)">Cadastrar</button>
+					</div>
+				 </div>
 			</div>
 		</div>
+	</div>
 
 	</body>
 </html>

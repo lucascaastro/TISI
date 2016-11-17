@@ -154,6 +154,7 @@
 		      border-radius: 0;
 		      transition: .2s;
 		  }
+
 		  .navbar {
 		      font-family: Montserrat, sans-serif;
 		      margin-bottom: 0;
@@ -180,49 +181,54 @@
 	</head>
 	<body ng-app="crudComBD" ng-controller="controlador">
 
-		<nav class="navbar navbar-default navbar-fixed-top">
+			<br/>
+		
+		 <nav class="navbar navbar-inverse navbar-fixed-top">
 		  <div class="container-fluid">
 		    <div class="navbar-header">
-		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		      </button>
-		      <a class="navbar-brand" href="#">ORGANIZE</a>
+		      <a class="navbar-brand">Organize</a>
 		    </div>
-		    <div class="collapse navbar-collapse" id="myNavbar">
-		      <ul class="nav navbar-nav navbar-right">
+		    <ul class="nav navbar-nav">
 			<li><a href="view_projetos_tarefas_subtarefas.html">Dashboard</a></li>
 			<li><a href="view_projetos_exec_finalizados.html">Meus Projetos</a></li>
 			<li><a href="view_tarefas_subtarefas.html">Minhas Tarefas</a></li>
-			<li><a href="view_minha_conta.html">Minha Conta</a></li>
-		      </ul>
-		    </div>
+		    </ul>
+		    <ul class="nav navbar-nav navbar-right">
+		      <li><a href="view_minha_conta.html"> <span class="glyphicon glyphicon-heart"></span> Minha Conta</a></li>
+		      <li><a ng-click="Logout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+		    </ul>
 		  </div>
 		</nav>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
 
 		<div class="container-fluid" data-ng-init="consultaProjetos_Usuario()">
-			<br/>
-			<br/>
-			<br/>
 						
 			 <div class="col-sm-36">
 				<div class="bs-calltoaction bs-calltoaction-default">
                     			<div class="row">
+
                         		    <div class="col-md-7 cta-contents">
                             			<h1 class="cta-title">Meus Projetos</h1>
                         		    </div>
 
-						<div class="col-md-3 cta-button">
-						    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('VisualizaProjetos');">Visualizar</a>
-		    				    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Info_Projeto');">Info</a>
+						<div class="col-md-3  cta-button">
+						    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('VisualizaProjetos');"> <span class="glyphicon glyphicon-search"></span> Visualizar</a>
+						</div>
+
+						<div class="col-md-3  cta-button">
+		    				    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Info_Projeto');"> <span class="glyphicon glyphicon-th-list"></span> Info </a>
 						</div>
                      			</div>
                 		</div>
 			</div>
+	        </div>
 
-			<div id="VisualizaProjetos" style="display:none;">
-				<table class="table"> <!-- tabela -->
+			<div class="table-responsive" id="VisualizaProjetos" style="display:none;">
+				<table class="table table-hover"> <!-- tabela -->
 					<tr> <!-- table row (nova linha)--> 
 						<!-- table header (célula de cabeçalho)-->
 						<th> Nome </th> 
@@ -236,22 +242,22 @@
 						<td> {{projeto.data_inicio}} </td> 
 						<td> {{projeto.data_entrega}} </td> 
 						<td> 
-							<a href="#" ng-click="finalizarProjeto(projeto.id_projeto)"> Finalizar</a> 
-							||
-							<a href="#" ng-click="removerProjeto(projeto.id_projeto)"> Remover </a> 
-							||
-							<a href="#" ng-click="preparaAtualizarProjeto(projeto.id_projeto)"> Editar </a> 
-							||
-							<a href="#" ng-click="mostrarTarefas(projeto.id_projeto)"> Mostrar Tarefas</a> 
-							||
-							<a href="#" ng-click="editarTarefa2(projeto.id_projeto)"> Adicionar Tarefa</a> 
+							<button type="button" class="btn btn-info btn-xs" ng-click="finalizarProjeto(projeto.id_projeto)"> <span class="glyphicon glyphicon-ok"></span> Finalizar</button>
+							
+							<button type="button" class="btn btn-info  btn-xs" ng-click="removerProjeto(projeto.id_projeto)"> <span class="glyphicon glyphicon-remove"></span> Remover </button>
+							
+							<button type="button" class="btn btn-info btn-xs" ng-click="preparaAtualizarProjeto(projeto.id_projeto)"> <span class="glyphicon glyphicon-pencil"></span> Editar </button>
+
+							<button type="button" class="btn btn-info btn-xs" ng-click="editarTarefa2(projeto.id_projeto)"> <span class="glyphicon glyphicon-plus"></span> Adicionar Tarefas</button>
+							
+							<button type="button" class="btn btn-info btn-xs" ng-click="mostrarTarefas(projeto.id_projeto)"> <span class="glyphicon glyphicon-option-vertical"></span>  Mostrar Tarefas</button>
 						</td>
 					</tr>
 				</table>
 			</div>
 
 
-		     <div id='Info_Projeto'>
+		     <div id='Info_Projeto' style="display:none;">
 			</br>
 			</br>
 			<p><h2> Informações do Projeto</h2></p>
@@ -266,27 +272,31 @@
 			<button type="button" class="btn btn-info" ng-click="atualizarProjeto()"> Atualizar </button>
 		     </div>
 			
-		</div>
-	
+
 		<div class="container-fluid">
-			
 			
 			 <div class="col-sm-36">
 				<div class="bs-calltoaction bs-calltoaction-default">
                     			<div class="row">
+
                         		    <div class="col-md-7 cta-contents">
                             			<h1 class="cta-title">Tarefas</h1>
                         		    </div>
+
 						 <div class="col-md-3 cta-button">
-							<a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('VisualizaTarefas');">Visualizar</a>
-							<a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Info_Tarefa');">Info</a>
+							<a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('VisualizaTarefas');"> <span class="glyphicon glyphicon-search"> Visualizar </a>
+						 </div>
+						 <div class="col-md-3 cta-button">
+							<a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Info_Tarefa');"> <span class="glyphicon glyphicon-th-list"></span> Info </a>
 						 </div>
                      			</div>
                 		</div>
 			</div>
+	        </div>
 
-			<div id="VisualizaTarefas" style="display:none;">
-				<table class="table"> <!-- tabela -->
+
+			<div class="table-responsive" id="VisualizaTarefas" style="display:none;">
+				<table class="table table-hover"> <!-- tabela -->
 					<tr> <!-- table row (nova linha)--> 
 						<!-- table header (célula de cabeçalho)-->
 						<th> Nome </th> 
@@ -296,33 +306,30 @@
 						<th> Data Entrega </th> 
 					</tr>
 					<tr ng-repeat="tarefa in listaTarefas">
-						<td> {{tarefa.nome}} </td> 
+						<td > {{tarefa.nome}} </td> 
 						<td> {{tarefa.prioridade}} </td> 
 						<td> {{tarefa.descricao}} </td> 
 						<td> {{tarefa.data_inicio}} </td> 
 						<td> {{tarefa.data_entrega}} </td> 
 						<td> 
-							<a href="#" ng-click="finalizarTarefa(tarefa.id_tarefa, tarefa.id_projeto)"> Finalizar </a> 
-							||
-							<a href="#" ng-click="removerTarefa(tarefa.id_tarefa, tarefa.id_projeto)"> Remover </a> 
-							||
-							<a href="#" ng-click="editarTarefa(tarefa.id_tarefa, tarefa.id_projeto)"> Editar </a> 
-							||
-							<a href="#" ng-click="mostrarSubtarefas(tarefa.id_tarefa)"> Mostrar Subtarefas</a> 
-							||
-							<a href="#" ng-click="editarSubtarefa(tarefa.id_tarefa)"> Adicionar Subtarefa</a> 
+							<button type="button" class="btn btn-info btn-xs" ng-click="finalizarTarefa(tarefa.id_tarefa)"> <span class="glyphicon glyphicon-ok"></span> Finalizar</button>
+
+							<button type="button" class="btn btn-info btn-xs" ng-click="removerTarefa(tarefa.id_tarefa)">  <span class="glyphicon glyphicon-remove"></span> Remover </button>
+
+							<button type="button" class="btn btn-info btn-xs" ng-click="editarSubtarefa(tarefa.id_tarefa)">  <span class="glyphicon glyphicon-plus"></span>  Subtarefas</button>
+
+							<button type="button" class="btn btn-info btn-xs" ng-click="editarTarefa(tarefa.id_tarefa)"> <span class="glyphicon glyphicon-pencil"></span> Editar </button>
+
+							<button type="button" class="btn btn-info btn-xs" ng-click="mostrarSubtarefas(tarefa.id_tarefa)"> <span class="glyphicon glyphicon-option-vertical"></span> Mostrar Subtarefas</button>
 							
 						</td>
 						</td>
 						
 					</tr>
-					<br/>
-					<br/>
-					<br/>
 				</table>
-			   </div>
+		      </div>
 				
-			   <div id='Info_Tarefa'>
+         	 <div id='Info_Tarefa' style="display:none;">
 
 				<h2> Informações do Tarefa</h2>
 
@@ -334,13 +341,13 @@
 				<br/>
 
 				<button type="button" class="btn btn-info" ng-click="inserirTarefa(tarefa.id_projeto)"> Inserir </button>
-				<button type="button" class="btn btn-info" ng-click="atualizarTarefa()"> Atualizar </button>
+				<button type="button" class="btn btn-info" ng-click="atualizarTarefa(tarefa.id_projeto)"> Atualizar </button>
 				<br/>
 				<br/>
 				<br/>
-			</div>
+	   	</div>
 		
-			 <div class="container-fluid" >
+	   	        <div class="container-fluid" >
 			 	<div class="col-sm-36">
 					<div class="bs-calltoaction bs-calltoaction-default">
                     				<div class="row">
@@ -349,16 +356,18 @@
                         				</div>
 
 							<div class="col-md-3 cta-button">
-							    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('VisualizaSubTarefas');">Visualizar</a>
-							    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Info_Subtarefa');">Info</a>
+							    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('VisualizaSubTarefas');"> <span class="glyphicon glyphicon-search"> Visualizar</a>
+							</div>
+							<div class="col-md-3 cta-button">
+							    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Info_Subtarefa');"> <span class="glyphicon glyphicon-th-list"></span> Info</a>
 							</div>
                      				</div>
 					</div>
 				</div>
 			</div>
 			
-			<div id="VisualizaSubTarefas" style="display:none;">
-				<table class="table"> <!-- tabela -->
+			<div class="table-responsive" id="VisualizaSubTarefas" style="display:none;">
+				<table class="table table-hover"> <!-- tabela -->
 					<tr> 
 						<th> Nome </th> 
 						<th> Prioridade </th> 
@@ -373,11 +382,11 @@
 						<td> {{subtarefa.data_inicio}} </td> 
 						<td> {{subtarefa.data_entrega}} </td> 
 						<td> 
-							<a href="#" ng-click="finalizarSubTarefa(subtarefa.id_subtarefa)"> Finalizar </a> 
-							||
-							<a href="#" ng-click="removerSubTarefa(subtarefa.id_subtarefa)"> Remover </a> 
-							||
-							<a href="#" ng-click="preparaAtualizarSubTarefa(subtarefa.id_subtarefa)"> Atualizar </a> 
+							<button type="button" class="btn btn-info btn-xs" ng-click="finalizarSubTarefa(subtarefa.id_subtarefa)"> <span class="glyphicon glyphicon-ok"></span> Finalizar</button>
+							
+							<button type="button" class="btn btn-info btn-xs" ng-click="removerSubTarefa(subtarefa.id_subtarefa)"> <span class="glyphicon glyphicon-remove"></span> Remover </button>
+							
+							<button type="button" class="btn btn-info btn-xs" ng-click="preparaAtualizarSubTarefa(subtarefa.id_subtarefa)"> <span class="glyphicon glyphicon-pencil"></span> Editar </button>
 					</tr>
 				</table>
 				</br>
@@ -397,7 +406,6 @@
 				<button type="button" class="btn btn-info" ng-click="inserirSubTarefa()"> Inserir </button>
 				<button type="button" class="btn btn-info" ng-click="atualizarSubTarefa()"> Atualizar </button>
 			</div>
-	   </div>
 	   </br>
 	   </br>
 	   </br>
@@ -406,13 +414,14 @@
 		<script>
  
 			function abrefecha(obj){
-			var el = document.getElementById(obj);
-			  if(el.style.display != "block"){
-			      el.style.display = "block";
-			    }
-				else{
-			     el.style.display = "none";
-          		}
+				var el = document.getElementById(obj);
+				  if(el.style.display != "block"){
+				      el.style.display = "block";
+
+				    }
+				  else{
+				     el.style.display = "none";
+				}
 			}
 		</script>
 		   

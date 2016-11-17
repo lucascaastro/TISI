@@ -112,7 +112,7 @@ constraint fk_subtarefas_id_usuario foreign key(id_usuario)
 insert into tb_usuarios( nome, sobrenome, username, senha, fg_ativo)
 values
 ('AAA', 'AAA', 'aaa@gmail.com','12345', 1),
-('BBB', 'BBB', 'bbbgmail.com','12345', 1);
+('BBB', 'BBB', 'bbb@gmail.com','12345', 1);
 
 
 insert into tb_projetos( id_usuario, nome, descricao, data_inicio, data_entrega, fg_ativo)

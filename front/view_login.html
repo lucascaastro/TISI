@@ -19,7 +19,30 @@
 		    <title>Organize</title>
 
 		<style media="screen">
-			@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+		  .navbar {
+		      font-family: Montserrat, sans-serif;
+		      margin-bottom: 0;
+		      background-color: #413E4A;
+		      border: 1;
+		      font-size: 11px !important;
+		      letter-spacing: 4px;
+		      opacity: 0.9;
+		  }
+		  .navbar li a, .navbar .navbar-brand {
+		      color: #d5d5d5 !important;
+		  }
+		  .navbar-nav li a:hover {
+		      color: #fff !important;
+		  }
+		  .navbar-nav li.active a {
+		      color: #fff !important;
+		      background-color: #29292c !important;
+		  }
+		  .navbar-default .navbar-toggle {
+		      border-color: transparent;
+		  }
+		@import url(http://fonts.googleapis.com/css?family=Roboto);
 		
 		        /****** LOGIN MODAL ******/
 		        .loginmodal-container {
@@ -128,35 +151,29 @@
 	</style>
   </head>
   <body ng-app="crudComBD" ng-controller="controlador">
-    <nav class="navbar navbar-default navbar-fixed-top">
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
 		  <div class="container-fluid">
 		    <div class="navbar-header">
-		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		      </button>
-		      <a class="navbar-brand" href="#">ORGANIZE</a>
+		      <a href="view_home.html" class="navbar-brand">Organize</a>
 		    </div>
-		    <div class="collapse navbar-collapse" id="myNavbar">
-		      <ul class="nav navbar-nav navbar-right">
-			
-		      </ul>
-		    </div>
+		    <ul class="nav navbar-nav">
+		    </ul>
+		    <ul class="nav navbar-nav navbar-right">
+		      <li><a href="view_login.html"><span class="glyphicon glyphicon-user"></span>  Login </a></li>
+		      <li><a href="view_cadastro.html"><span class="glyphicon glyphicon-th-list"></span> Cadastro </a></li>
+		    </ul>
 		  </div>
-		</nav>
+	</nav>	
 
-    </br>
-    </br>
-    </br>
     <div class="container">
-	   <div class="panel-heading panel-title">
 
-	       <div class="jumbotron" style="background:#3B5DAC">
-		 <h1 style="text-align: center;font-size: 80px; color:white;">Organize</h1>
-	       </div>
-
-     	   </div>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
 
       <div class="modal-dialog">
         <div class="loginmodal-container">
@@ -165,9 +182,7 @@
 	  <br/>Username<input type="email" class="form-control" ng-model="login.username"/>
 	  <br/>Senha<input type="password" class="form-control" ng-model="login.senha"/>
 	  <br/>                                                   
-	  <button type="button" class="btn btn-info" ng-click="Login(login)"> Login</button>
-	  <button type="button" class="btn btn-info" ng-click="mostrarCadastro()"> Cadastro</button>
-
+	  <button type="button" class="btn btn-lg btn-block btn-info" ng-click="Login(login)"> Login</button>
         </div>
      </div>
   </div>

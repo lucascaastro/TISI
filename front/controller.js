@@ -6,7 +6,7 @@
 
 	    // Login 
 	    $scope.mostrarLogin= function(){
-			window.location.href = 'login.html';
+			window.location.href = 'view_login.html';
 	    };
 
 	    $scope.Login = function(login){
@@ -27,10 +27,25 @@
 			
 		};
 
+	    $scope.Logout = function(login){
+
+			var resposta = confirm("Deseja Sair ?");
+
+			if (resposta == true){
+
+				$http.get('http://localhost:3000/logout')
+				.then(function (response ){
+			  	   window.location.href = 'view_home.html';
+			});
+			
+			}
+		};
+
+
 	    // Cadastro
 	    $scope.mostrarCadastro = function(id_projeto){
 			$scope.id_p = id_projeto;
-			window.location.href = 'cadastro.html';
+			window.location.href = 'view_cadastro.html';
 	    };
 
 	    $scope.cadastrarUsuario = function(usuario){
@@ -240,10 +255,11 @@
 
 
 		// Atualizar
-		$scope.atualizarTarefa = function(){
+		$scope.atualizarTarefa = function(id_projeto){
 			$http.put('http://localhost:3000/updateTarefa', $scope.tarefa )
 			.then(function (response){
-				atualizaTabelaTarefas();
+				//atualizaTabelaTarefas();
+				atualiza_Tabela_Tarefas_Usuario_Projeto(id_projeto);
 				alert("Atualização com sucesso");
 			});
 		};	

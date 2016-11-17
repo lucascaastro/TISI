@@ -140,21 +140,16 @@ app.get('/dashboard', function(req, res){
 
 app.get('/logout', function(req, res){
 
-	//Verifica se o usuario não está logado
-	if(User.id == -1){
-		res.status(404).send("Não está logado.");
-	}
-	else{
-	   User.id = -1; 
-	   req.session.destroy( function(err){
+        User.id = -1; 
+
+        req.session.destroy( function(err){
 	    if(err){
 	    	return console.error('erro na hora de destruir a sessão', err);
 	    }
+	  });
 
-	    res.send("Não está mais logado.");
-	   });
+	 res.send("1");
 	   
-	}
 });
 
 //////////// CRUD Projetos

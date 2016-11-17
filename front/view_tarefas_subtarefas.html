@@ -182,33 +182,32 @@
 	</head>
 	<body ng-app="crudComBD" ng-controller="controlador">
 
-		<nav class="navbar navbar-default navbar-fixed-top">
+	<nav class="navbar navbar-inverse navbar-fixed-top">
 		  <div class="container-fluid">
 		    <div class="navbar-header">
-		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		      </button>
-		      <a class="navbar-brand">ORGANIZE</a>
+		      <a class="navbar-brand">Organize</a>
 		    </div>
-		    <div class="collapse navbar-collapse" id="myNavbar">
-		      <ul class="nav navbar-nav navbar-right">
+		    <ul class="nav navbar-nav">
 			<li><a href="view_projetos_tarefas_subtarefas.html">Dashboard</a></li>
 			<li><a href="view_projetos_exec_finalizados.html">Meus Projetos</a></li>
 			<li><a href="view_tarefas_subtarefas.html">Minhas Tarefas</a></li>
-			<li><a href="view_minha_conta.html">Minha Conta</a></li>
-		      </ul>
-		    </div>
+		    </ul>
+		    <ul class="nav navbar-nav navbar-right">
+		      <li><a href="view_minha_conta.html"> <span class="glyphicon glyphicon-heart"></span> Minha Conta</a></li>
+		      <li><a ng-click="Logout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+		    </ul>
 		  </div>
-		</nav>
-		
+	</nav>
+
+
+		</br>		
+		</br>		
+		</br>		
+		</br>		
+		</br>		
 
 		<div class="container-fluid" data-ng-init="consultaTarefas_Usuario()">
 
-			</br>
-			</br>
-			</br>
 			 <div class="col-sm-36">
 				<div class="bs-calltoaction bs-calltoaction-default">
                     			<div class="row">
@@ -217,14 +216,14 @@
                         		    </div>
 
 						<div class="col-md-3 cta-button">
-						    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Minhas_Tarefas');">Visualizar</a>
+						    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Minhas_Tarefas');">  <span class="glyphicon glyphicon-search"> </span> Visualizar</a>
 						</div>
                      			</div>
                 		</div>
 			</div>
 
-		      <div id="Minhas_Tarefas">
-			<table class="table"> <!-- tabela -->
+		      <div class="table-responsive" id="Minhas_Tarefas" style="display:none;">
+			<table class="table table-hover"> <!-- tabela -->
 				<tr> <!-- table row (nova linha)--> 
 					<!-- table header (célula de cabeçalho)-->
 					<th> Nome </th> 
@@ -240,11 +239,9 @@
 					<td> {{tarefa.data_inicio}} </td> 
 					<td> {{tarefa.data_entrega}} </td> 
 					<td> 
-						<a href="#" ng-click="finalizarTarefa(tarefa.id_tarefa, tarefa.id_projeto)"> Finalizar </a> 
-						||
-						<a href="#" ng-click="removerTarefa(tarefa.id_tarefa, tarefa.id_projeto)"> Remover </a> 
-						||
-						<a href="#" ng-click="mostrarSubtarefas(tarefa.id_tarefa)"> Mostrar Subtarefas</a> 
+						<button type="button" class="btn btn-info btn-xs" ng-click="finalizarTarefa(tarefa.id_tarefa, tarefa.id_projeto)"> <span class="glyphicon glyphicon-ok"></span> Finalizar</button>
+						<button type="button" class="btn btn-info btn-xs"  ng-click="removerTarefa(tarefa.id_tarefa, tarefa.id_projeto)"><span class="glyphicon glyphicon-remove"></span>  Remover </button>
+						<button type="button" class="btn btn-info btn-xs"  ng-click="mostrarSubtarefas(tarefa.id_tarefa)"><span class="glyphicon glyphicon-option-vertical"></span> Mostrar Subtarefas </button>
 					</td>
 					</td>
 				</tr>
@@ -262,14 +259,14 @@
                         		    </div>
 
 						<div class="col-md-3 cta-button">
-						    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Minhas_Subtarefas');">Visualizar</a>
+						    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Minhas_Subtarefas');"> <span class="glyphicon glyphicon-search"> </span> Visualizar</a>
 						</div>
                      			</div>
                 		</div>
 			</div>
 
-		       <div id="Minhas_Subtarefas">
-			<table class="table"> <!-- tabela -->
+		       <div class="table-responsive" id="Minhas_Subtarefas" style="display:none;">
+			<table class="table table-hover"> <!-- tabela -->
 				<tr> <!-- table row (nova linha)--> 
 					<!-- table header (célula de cabeçalho)-->
 					<th> Nome </th> 
@@ -285,9 +282,8 @@
 					<td> {{subtarefa.data_inicio}} </td> 
 					<td> {{subtarefa.data_entrega}} </td> 
 					<td> 
-						<a href="#" ng-click="finalizarSubTarefa(subtarefa.id_subtarefa)"> Finalizar </a> 
-						||
-						<a href="#" ng-click="removerSubTarefa(subtarefa.id_subtarefa)"> Remover </a> 
+						<button type="button" class="btn btn-info btn-xs"  ng-click="finalizarSubTarefa(subtarefa.id_subtarefa)"> <span class="glyphicon glyphicon-ok"></span> Finalizar</button>
+						<button type="button" class="btn btn-info btn-xs"  ng-click="removerSubTarefa(subtarefa.id_subtarefa)"> <span class="glyphicon glyphicon-remove"></span> Remover </button>
 				</tr>
 			</table>
 		       </div>

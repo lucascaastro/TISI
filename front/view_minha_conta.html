@@ -182,37 +182,30 @@
 
 	<body ng-app="crudComBD" ng-controller="controlador">
 
-		<nav class="navbar navbar-default navbar-fixed-top">
-
+	 <nav class="navbar navbar-inverse navbar-fixed-top">
 		  <div class="container-fluid">
 		    <div class="navbar-header">
-		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		      </button>
-		      <a class="navbar-brand" href="#">ORGANIZE</a>
+		      <a class="navbar-brand">Organize</a>
 		    </div>
-
-		    <div class="collapse navbar-collapse" id="myNavbar">
-		      <ul class="nav navbar-nav navbar-right">
+		    <ul class="nav navbar-nav">
 			<li><a href="view_projetos_tarefas_subtarefas.html">Dashboard</a></li>
 			<li><a href="view_projetos_exec_finalizados.html">Meus Projetos</a></li>
 			<li><a href="view_tarefas_subtarefas.html">Minhas Tarefas</a></li>
-			<li><a href="view_minha_conta.html">Minha Conta</a></li>
-		      </ul>
-		    </div>
-
+		    </ul>
+		    <ul class="nav navbar-nav navbar-right">
+		      <li><a href="view_minha_conta.html"> <span class="glyphicon glyphicon-heart"></span> Minha Conta</a></li>
+		      <li><a ng-click="Logout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+		    </ul>
 		  </div>
 		</nav>
+	
+		</br>	
+		</br>	
+		</br>	
+		</br>	
+		</br>	
 
 		<div class="container-fluid" data-ng-init="consultaMinhaConta()">
-
-			</br>
-			</br>
-			</br>
-			</br>
-			</br>
 
 			 <div class="col-sm-36">
 				<div class="bs-calltoaction bs-calltoaction-default">
@@ -222,18 +215,18 @@
                         		    </div>
 
 						<div class="col-md-3 cta-button">
-						    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Meus_Dados');">Visualizar</a>
-		    				    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Info_Dados');">Info</a>
-						    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Trocar_Senha');">Trocar Senha</a>
+						    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Meus_Dados');">  <span class="glyphicon glyphicon-search"> </span> Visualizar</a>
+		    				    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Atualizar_Dados');"> Atualizar </a>
+						    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Trocar_Senha');"><span class="glyphicon glyphicon-lock"> </span> Trocar Senha</a>
 						</div>
                      			</div>
                 		</div>
 			</div>
 
-			<div id="Meus_Dados">
+			<div class="table-resposive" id="Meus_Dados" style="display:none;">
 				</br>
 				</br>
-				<table class="table"> <!-- tabela -->
+				<table class="table table-hover"> <!-- tabela -->
 					<tr> <!-- table row (nova linha)--> 
 						<!-- table header (célula de cabeçalho)-->
 						<th> Nome </th> 
@@ -245,15 +238,13 @@
 						<td> {{dado.sobrenome}} </td> 
 						<td> {{dado.username}} </td> 
 						<td> 
-							<a href="#" ng-click="removerConta(dado.id_usuario)"> Remover Minha Conta</a> 
-							||
-							<a href="#" ng-click="preparaAtualizar_MinhaConta(dado.id_usuario)"> Editar Dados </a> 
+							<a class="btn btn-info"  ng-click="removerConta(dado.id_usuario)"> <span class="glyphicon glyphicon-remove"></span>  Remover Minha Conta</a> 
 						</td>
 					</tr>
 				</table>
 			 </div>
 
-			<div id="Info_Dados">
+			<div id="Info_Dados" style="display:none;">
 				</br>
 				<h2> Informações do Usuario</h2>
 
@@ -268,7 +259,7 @@
 
 			</div>
 
-			<div id="Trocar_Senha">
+			<div id="Trocar_Senha" style="display:none;" >
 				<h2> Trocar Senha </h2>
 
 				<br/>Nova Senha<input type="password" class="form-control" ng-model="dado.nova_senha"/>	
@@ -280,6 +271,42 @@
 				</br>
 				</br>
 				</br>
+			</div>
+
+			<div class="table-resposive" id="Atualizar_Dados" style="display:none;">
+				</br>
+				</br>
+				<table class="table table-hover"> <!-- tabela -->
+					<tr> <!-- table row (nova linha)--> 
+						<!-- table header (célula de cabeçalho)-->
+						<th> Nome Atual </th> 
+						<th> Sobrenome Atual</th> 
+						<th> Username Atual </th> 
+					</tr>
+					<tr ng-repeat="dado in MeusDados">
+						<td> {{dado.nome}} </td> 
+						<td> {{dado.sobrenome}} </td> 
+						<td> {{dado.username}} </td> 
+						<td> 
+						</td>
+					</tr>
+				</table>
+
+				</br>
+				<h2> Informações do Usuario</h2>
+
+				<br/>Novo Nome <input type="text" class="form-control" ng-model="dado.nome"/>	
+				<br/>Novo Sobrenome <input type="text" class="form-control" ng-model="dado.sobrenome"/>	
+				<br/>Novo Username <input type="text" class="form-control" ng-model="dado.username"/>	
+				<br/>
+
+				<button type="button" class="btn btn-info" ng-click="atualizarMinhaConta()"> Confirmar </button>
+				</br>
+				</br>
+				</br>
+				</br>
+
+
 			</div>
 
 	</div>
@@ -294,6 +321,20 @@
 				     el.style.display = "none";
 				}
 			}
+
+			function abrefecha2(obj1, obj2){
+				var el1 = document.getElementById(obj2);
+				var el2 = document.getElementById(obj2);
+				  if( el1.style.display != "block" || el2.style.display != "block"){
+				      el1.style.display = "block";
+				      el2.style.display = "block";
+				    }
+				  else{
+				     el1.style.display = "none";
+				     el2.style.display = "none";
+				}
+			}
+
 		</script>
 	</body>
 </html>
