@@ -27,6 +27,21 @@
 			
 		};
 
+	    $scope.Logout = function(login){
+
+			var resposta = confirm("Deseja Sair ?");
+
+			if (resposta == true){
+
+				$http.get('http://localhost:3000/logout')
+				.then(function (response ){
+			  	   window.location.href = 'view_home.html';
+			});
+			
+			}
+		};
+
+
 	    // Cadastro
 	    $scope.mostrarCadastro = function(id_projeto){
 			$scope.id_p = id_projeto;
