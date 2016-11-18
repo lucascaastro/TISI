@@ -218,7 +218,7 @@
 		      <li><a ng-click="Logout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
 		    </ul>
 		  </div>
-		</nav>
+	</nav>
 
 			</br>
 			</br>
@@ -226,26 +226,27 @@
 			</br>
 			</br>			
 
-		<div class="container-fluid" data-ng-init="consultaProjetos_Usuario()">
+	<div class="container-fluid">
 			
 			<div class="col-sm-36">
 				<div class="bs-calltoaction bs-calltoaction-default">
-                    <div class="row">
 
-                        <div class="col-md-7 cta-contents">
-                            <h1 class="cta-title">Projetos em Execução</h1>
-                        </div>
+					<div class="row">
 
-                        <div class="col-md-3 cta-button">
-                            <a class="btn btn-lg btn-block btn-info" onclick="abrefecha('ProjetosExecucao');"> <span class="glyphicon glyphicon-search"> </span> Visualizar</a>
-                            <a class="btn btn-lg btn-block btn-info" onclick="abrefecha('Info_Projeto');">  <span class="glyphicon glyphicon-plus"></span> Adicionar Projeto</a>
-		        </div>
+						<div class="col-md-7 cta-contents">
+						    <h1 class="cta-title">Projetos em Execução</h1>
+						</div>
 
-                   </div>
+						<div class="col-md-3 cta-button">
+						    <a class="btn btn-lg btn-block btn-info" onclick="abrefecha('ProjetosExecucao');"> <span class="glyphicon glyphicon-search"> </span> Visualizar</a>
+						    <a class="btn btn-lg btn-block btn-info" onclick="abrefecha('Info_Projeto');">  <span class="glyphicon glyphicon-plus"></span> Adicionar Projeto</a>
+						</div>
 
-                </div>
+					</div>
+
+			</div>
 			
-		<div clas="table-reponsive" id="ProjetosExecucao" style="display:none;">
+		<div clas="table-reponsive" id="ProjetosExecucao" style="display:none;" data-ng-init="consultaProjetos_Usuario()" >
 			<table class="table table-hover"> <!-- tabela -->
 				<tr> <!-- table row (nova linha)--> 
 					<!-- table header (célula de cabeçalho)-->
@@ -267,7 +268,6 @@
 			</table>
 			</br>
 			</br>
-		</div>
 
 	     <div id='Info_Projeto' style="display:none;">
 		<h2> Novo Projeto</h2>
@@ -282,26 +282,28 @@
 		<br/>
 		<br/>
 	     </div>
+	</div>
 
-		<div class="container-fluid" data-ng-init="consultaProjetosFinalizados_Usuario()>
+	<div class="container-fluid">
 			
-			<div class="col-sm-36">
-				<div class="bs-calltoaction bs-calltoaction-default">
-                    <div class="row">
+		<div class="col-sm-36">
+			<div class="bs-calltoaction bs-calltoaction-default">
+                    		<div class="row">
 
-                        <div class="col-md-7 cta-contents">
-                            <h1 class="cta-title">Projetos Finalizados</h1>
-                        </div>
+					<div class="col-md-7 cta-contents">
+					    <h1 class="cta-title">Projetos Finalizados</h1>
+					</div>
 
-                        <div class="col-md-3 cta-button">
-                            <a class="btn btn-lg btn-block btn-info" onclick="abrefecha('ProjetosFinalizados');"> <span class="glyphicon glyphicon-search"></span> Visualizar</a>
-		        </div>
+					<div class="col-md-3 cta-button">
+					    <a class="btn btn-lg btn-block btn-info" onclick="abrefecha('ProjetosFinalizados');"> <span class="glyphicon glyphicon-search"></span> Visualizar</a>
+					</div>
 
-                   </div>
+                   		</div>
 
+                	</div>
                 </div>
 	
-		<div class="table-responsive" id="ProjetosFinalizados" style="display:none;">
+		<div class="table-responsive" id="ProjetosFinalizados" style="display:none;"  data-ng-init="consultaProjetosFinalizados_Usuario()">
 			<table class="table table-hover"> <!-- tabela -->
 				<tr> <!-- table row (nova linha)--> 
 					<!-- table header (célula de cabeçalho)-->
@@ -316,7 +318,8 @@
 					<td> {{projeto.data_inicio}} </td> 
 					<td> {{projeto.data_entrega}} </td> 
 					<td> 
-						<a href="#" class="btn btn-info btn-sm" g-click="removerProjeto(projeto.id_projeto)"> <span class="glyphicon glyphicon-remove"></span> Remover </a> 
+						<a href="#" class="btn btn-info btn-sm" ng-click="removerProjeto_Finalizado(projeto.id_projeto)"> <span class="glyphicon glyphicon-remove"></span> Remover </a> 
+						<a href="#" class="btn btn-info btn-sm" ng-click="reativarProjeto(projeto.id_projeto)"> <span class="glyphicon glyphicon-remove"></span> Reativar Projeto</a> 
 					</td>
 				</tr>
 			</table>

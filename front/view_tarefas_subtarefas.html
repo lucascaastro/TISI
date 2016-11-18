@@ -206,7 +206,7 @@
 		</br>		
 		</br>		
 
-		<div class="container-fluid" data-ng-init="consultaTarefas_Usuario()">
+		<div class="container-fluid">
 
 			 <div class="col-sm-36">
 				<div class="bs-calltoaction bs-calltoaction-default">
@@ -217,12 +217,13 @@
 
 						<div class="col-md-3 cta-button">
 						    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Minhas_Tarefas');">  <span class="glyphicon glyphicon-search"> </span> Visualizar</a>
+						    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Adicionar_Tarefa');">  <span class="glyphicon glyphicon-plus"> </span> Nova Tarefa</a>
 						</div>
                      			</div>
                 		</div>
 			</div>
 
-		      <div class="table-responsive" id="Minhas_Tarefas" style="display:none;">
+		      <div class="table-responsive" id="Minhas_Tarefas" style="display:none;" data-ng-init="consultaTarefas_Usuario()">
 			<table class="table table-hover"> <!-- tabela -->
 				<tr> <!-- table row (nova linha)--> 
 					<!-- table header (célula de cabeçalho)-->
@@ -247,7 +248,32 @@
 				</tr>
 			</table>
 		     </div>
-		</div>
+				
+         	 <div  id='Adicionar_Tarefa' style="display:none"  data-ng-init="consultaProjetos_Usuario()">
+
+				<h2> Nova Tarefa</h2>
+				<br/> Nome do Projeto
+				<select name="select_Projeto" id="select_Projeto" class="form-control" ng-model="projeto.id_projeto">
+					<option 
+						ng-repeat="p in listaProjetos" 
+						value="{{p.id_projeto}}"> 
+						{{p.nome}}
+						</option> 
+				</select>
+
+				<br/>Nome da Tarefa <input type="text" class="form-control" ng-model="tarefa.nome"/>	
+				<br/>Prioridade <input type="number" class="form-control" ng-model="tarefa.prioridade"/>	
+				<br/>Descrição <input type="text" class="form-control" ng-model="tarefa.descricao"/>	
+				<br/>Data Início<input type="text" class="form-control" ng-model="tarefa.data_inicio"/>	
+				<br/>Data Entrega<input type="text" class="form-control" ng-model="tarefa.data_entrega"/>	
+				<br/>
+
+				<button type="button" class="btn btn-info" ng-click="inserirTarefa2(projeto.id_projeto)"> Inserir </button>
+				<br/>
+				<br/>
+				<br/>
+	   	</div>
+	    </div>
 
 		<div class="container-fluid" >
 
@@ -260,6 +286,7 @@
 
 						<div class="col-md-3 cta-button">
 						    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Minhas_Subtarefas');"> <span class="glyphicon glyphicon-search"> </span> Visualizar</a>
+						    <a href="#" class="btn btn-lg btn-block btn-info" onclick="abrefecha('Adicionar_Subtarefa');">  <span class="glyphicon glyphicon-plus"> </span> Nova Subtarefa</a>
 						</div>
                      			</div>
                 		</div>
@@ -287,7 +314,33 @@
 				</tr>
 			</table>
 		       </div>
-		   </div>
+			
+			 <div  id='Adicionar_Subtarefa' style="display:none"  data-ng-init="consultaTarefas_Usuario()">
+
+					<h2> Nova Subtarefa</h2>
+					<br/> Nome da Tarefa 
+					<select  name="select_Tarefa" id="select_Tarefa" class="form-control" ng-model="tarefa.id_tarefa">
+						<option 
+							ng-repeat="t in listaTarefas" 
+							value="{{t.id_tarefa}}"> 
+							{{t.nome}}
+						</option> 
+					</select>
+
+					<br/>Nome da Subtarefa <input type="text" class="form-control" ng-model="subtarefa.nome"/>	
+					<br/>Prioridade <input type="number" class="form-control" ng-model="subtarefa.prioridade"/>	
+					<br/>Descrição <input type="text" class="form-control" ng-model="subtarefa.descricao"/>	
+					<br/>Data Início<input type="text" class="form-control" ng-model="subtarefa.data_inicio"/>	
+					<br/>Data Entrega<input type="text" class="form-control" ng-model="subtarefa.data_entrega"/>	
+					<br/>
+
+					<button type="button" class="btn btn-info" ng-click="inserirSubTarefa2(tarefa.id_tarefa)"> Inserir </button>
+					<br/>
+					<br/>
+					<br/>
+			</div>
+
+	   	</div>
 
 		<script>
  			function abrefecha(obj){

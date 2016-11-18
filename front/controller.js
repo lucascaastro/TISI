@@ -78,6 +78,7 @@
 		};
 
 		var atualizaTabelaProjetosFinalizados_Usuario = function(){
+
 			$http.get('http://localhost:3000/retrieveProjetosFinalizados_Usuario')
 			.then(function (response){
 				$scope.listaProjetosFinalizados = response.data;			
@@ -105,10 +106,23 @@
 				$http.delete('http://localhost:3000/deleteProjeto/' + id_projeto)
 				.then(function (response){
 					atualizaTabelaProjetos_Usuario();
-					atualizaTabelaProjetosFinalizados_Usuario();
 				});
 			}
 		};
+
+		$scope.removerProjeto_Finalizado = function(id_projeto){
+
+			var resposta = confirm("Confirma a exclusão deste Projeto ?");
+
+			if (resposta == true){
+				$http.delete('http://localhost:3000/deleteProjeto_Finalizado/' + id_projeto)
+				.then(function (response){
+					atualizaTabelaProjetosFinalizados_Usuario();
+					atualizaTabelaProjetos_Usuario();
+				});
+			}
+		};
+
 
 		$scope.finalizarProjeto = function(id_projeto){
 			
@@ -124,12 +138,25 @@
 			}
 		};
 
+		$scope.reativarProjeto = function(id_projeto){
+			
+			var posicao = retornaIndiceProjeto_Finalizado(id_projeto);
+
+			$http.put('http://localhost:3000/reativarProjeto_Usuario', $scope.listaProjetosFinalizados[posicao])
+			.then(function (response){
+				alert('Projeto Reativado');
+				atualizaTabelaProjetos_Usuario();
+				atualizaTabelaProjetosFinalizados_Usuario();
+			});
+		};
+
 
 		$scope.inserirProjeto = function(){
 			$http.post('http://localhost:3000/createProjeto', $scope.projeto )
 			.then(function (response){
 				atualizaTabelaProjetos_Usuario();
 				alert("Inserção com sucesso");
+				$scope.projeto = {};
 			}
 			);
 			
@@ -141,6 +168,7 @@
 			.then(function (response){
 				atualizaTabelaProjetos_Usuario();
 				alert("Atualização com sucesso");
+				$scope.projeto = {};
 			});
 		};	
 
@@ -153,7 +181,17 @@
 			var i;
 			for ( i=0; i < $scope.listaProjetos.length; i++ ){
 				if ($scope.listaProjetos[i].id_projeto == id_projeto ){
-					return i; // retorna posição do produto desejado
+					return i; 
+				}
+			}
+			return -1;
+		}
+
+		function retornaIndiceProjeto_Finalizado(id_projeto){
+			var i;
+			for ( i=0; i < $scope.listaProjetosFinalizados.length; i++ ){
+				if ($scope.listaProjetosFinalizados[i].id_projeto == id_projeto ){
+					return i; 
 				}
 			}
 			return -1;
@@ -247,6 +285,34 @@
 			.then(function (response){
 				alert("Inserido com sucesso");
 				$scope.tarefa = {};
+				atualizar_Tabela_Tarefas_Usuario();
+			}
+			);
+			
+		};
+
+		$scope.inserirTarefa2 = function(id_projeto){
+
+			$scope.tarefa.id_projeto = id_projeto;
+
+			$http.post('http://localhost:3000/createTarefa', $scope.tarefa )
+			.then(function (response){
+				alert("Inserido com sucesso");
+				$scope.tarefa = {};
+				window.location.href='view_tarefas_subtarefas.html';
+			}
+			);
+			
+		};
+
+		$scope.inserirTarefa3 = function(id_projeto){
+
+			$scope.tarefa.id_projeto = id_projeto;
+
+			$http.post('http://localhost:3000/createTarefa', $scope.tarefa )
+			.then(function (response){
+				alert("Inserido com sucesso");
+				$scope.tarefa = {};
 			}
 			);
 			
@@ -256,6 +322,17 @@
 
 		// Atualizar
 		$scope.atualizarTarefa = function(id_projeto){
+
+			$http.put('http://localhost:3000/updateTarefa', $scope.tarefa )
+			.then(function (response){
+				//atualizaTabelaTarefas();
+				atualiza_Tabela_Tarefas_Usuario_Projeto(id_projeto);
+				alert("Atualização com sucesso");
+			});
+		};	
+
+		$scope.atualizarTarefa2 = function(){
+
 			$http.put('http://localhost:3000/updateTarefa', $scope.tarefa )
 			.then(function (response){
 				//atualizaTabelaTarefas();
@@ -379,6 +456,32 @@
 			.then(function (response){
 				alert("Inserção com sucesso");
 				atualiza_Tabela_Subtarefas_Tarefa_Usuario(); 
+				$scope.subtarefa = {};
+			});
+			
+		};
+
+		$scope.inserirSubTarefa2 = function(id_tarefa){
+			
+			$scope.subtarefa.id_tarefa = id_tarefa;
+
+			$http.post('http://localhost:3000/createSubTarefa', $scope.subtarefa )
+			.then(function (response){
+				alert("Inserção com sucesso");
+				atualiza_Tabela_Subtarefas_Tarefa_Usuario(); 
+				window.location.href='view_tarefas_subtarefas.html';
+			});
+			
+		};
+
+		$scope.inserirSubTarefa3 = function(id_tarefa){
+			
+			$scope.subtarefa.id_tarefa = id_tarefa;
+
+			$http.post('http://localhost:3000/createSubTarefa', $scope.subtarefa )
+			.then(function (response){
+				alert("Inserção com sucesso");
+				atualiza_Tabela_Subtarefas_Tarefa_Usuario(); 
 			});
 			
 		};
@@ -388,6 +491,7 @@
 
 		// Atualizar
 		$scope.atualizarSubTarefa = function(){
+
 			$http.put('http://localhost:3000/updateSubTarefa', $scope.subtarefa )
 			.then(function (response){
 				alert("Atualização com sucesso");
