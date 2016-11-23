@@ -263,6 +263,50 @@ app.put('/finalizarProjeto_Usuario', urlencodedParser, function(req, res) {
 
 });
 
+// Reativa um Projeto de um Usuario incluindo todas suas Tarefas e Subtarefas
+// -- Funciona 
+app.put('/reativarProjeto_Usuario', urlencodedParser, function(req, res) {
+
+	//var id_usuario = req.body.id_usuario;
+	var id = User.id;
+	var id_projeto = req.body.id_projeto;
+
+
+    pool.connect(function(err, client, done) {
+
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+         client.query('update tb_projetos set fg_ativo = 1 from tb_usuarios where tb_usuarios.id_usuario = tb_projetos.id_usuario and tb_usuarios.id_usuario = $1 and tb_projetos.id_projeto = $2',[id, id_projeto], function(err,result){
+            done();
+            if(err){
+                return console.error('error running query', err);
+            }
+          });
+
+         client.query('update tb_tarefas set fg_ativo = 1 from tb_projetos where tb_projetos.id_projeto = tb_tarefas.id_projeto and tb_projetos.id_usuario = $1 and tb_projetos.id_projeto = $2',[id, id_projeto], function(err,result){
+            done();
+            if(err){
+                return console.error('error running query', err);
+            }
+          });
+
+         client.query('update tb_subtarefas set fg_ativo = 1 from tb_tarefas where tb_subtarefas.id_tarefa = tb_tarefas.id_tarefa and tb_tarefas.id_usuario = $1 and tb_tarefas.id_projeto = $2',[id, id_projeto], function(err,result){
+            done();
+            if(err){
+                return console.error('error running query', err);
+            }
+          });
+
+    });
+
+    res.send("Projeto Reativado");
+
+});
+
 
 // Create -- Funciona
 app.post('/createProjeto', urlencodedParser, function (req, res) {
@@ -348,16 +392,11 @@ app.put('/updateProjeto', urlencodedParser, function(req, res) {
 
 
 // Delete
-//app.delete('/deleteProjeto', urlencodedParser, function(req, res) {
 app.delete('/deleteProjeto/:id_projeto', function(req, res) {
 
 
-    // Grab data from the URL parameters
-    //var id = req.body.id_projeto;
-
     var id = req.params.id_projeto;
 
-    // Get a Postgres client from the connection pool
     pool.connect(function(err, client, done) {
 
         if(err) {
@@ -391,6 +430,48 @@ app.delete('/deleteProjeto/:id_projeto', function(req, res) {
 
      res.send("Projeto deletado com Sucesso");
 });
+
+// Delete Finalizado
+app.delete('/deleteProjeto_Finalizado/:id_projeto', function(req, res) {
+
+
+    var id = req.params.id_projeto;
+
+    pool.connect(function(err, client, done) {
+
+        if(err) {
+          done();
+          console.log(err);
+          return res.status(500).json({ success: false, data: err});
+        }
+
+    client.query('DELETE FROM tb_subtarefas USING tb_tarefas where tb_tarefas.id_tarefa = tb_subtarefas.id_tarefa and tb_subrarefa.fg_ativo = 0 and tb_tarefas.id_projeto  = ' + id, function(err, result) {
+	  done();
+	  if( err ){
+		return console.error('error running query', err);
+	  }
+	});
+
+    client.query('DELETE FROM tb_tarefas WHERE tb_tarefas.fg_ativo = 0 and tb_tarefas.id_projeto = ' + id, function(err, result) {
+	  done();
+	  if( err ){
+		return console.error('error running query', err);
+	  }
+	});
+
+    client.query('DELETE FROM tb_projetos WHERE tb_projetos.fg_ativo = 0 and tb_projetos.id_projeto = ' + id, function(err, result) {
+	  done();
+	  if( err ){
+		return console.error('error running query', err);
+	  }
+	});
+
+     });
+
+     res.send("Projeto deletado com Sucesso");
+});
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -893,8 +974,9 @@ app.put('/updateSubTarefa', urlencodedParser, function(req, res) {
 
 
     var id = req.body.id_subtarefa;
-
-    var data = { id_tarefa: req.body.id_tarefa, nome: req.body.nome, descricao: req.body.descricao, prioridade: req.body.prioridade, data_inicio: req.body.data_inicio, data_entrega:req.body.data_entrega, data_termino: req.body.data_termino};
+    console.log('id_subtarefa: ', id);
+    var data = { nome: req.body.nome, descricao: req.body.descricao, prioridade: req.body.prioridade, data_inicio: req.body.data_inicio, data_entrega:req.body.data_entrega};
+    console.log('data: ', data);
 
 
     // Get a Postgres client from the connection pool
@@ -906,7 +988,7 @@ app.put('/updateSubTarefa', urlencodedParser, function(req, res) {
           return res.status(500).send(json({ success: false, data: err}));
         }
 
-	client.query('update tb_subtarefas set id_tarefa = '+data.id_tarefa+', nome = \'' + data.nome + '\', descricao = \'' + data.descricao + '\', prioridade = '+data.prioridade+', data_inicio = \'' + data.data_inicio + '\', data_entrega = \'' + data.data_entrega + '\' where id_subtarefa = ' + id,
+	client.query('update tb_subtarefas set  nome = \'' + data.nome + '\', descricao = \'' + data.descricao + '\', prioridade = '+data.prioridade+', data_inicio = \'' + data.data_inicio + '\', data_entrega = \'' + data.data_entrega + '\' where id_subtarefa = ' + id,
 	  function(err, result){
 
 	  done();
