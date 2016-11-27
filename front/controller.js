@@ -14,7 +14,6 @@
 			$http.post('http://localhost:3000/login', login)
 			.then(function (response ){
 				if( response.data == 1){
-				   alert('Login efetuado com sucesso');
 					window.location.href = 'view_projetos_tarefas_subtarefas.html';
 				}
 				else if( response.data == 0 ){
@@ -51,18 +50,17 @@
 	    $scope.cadastrarUsuario = function(usuario){
 		
 			$http.post('http://localhost:3000/cadastroUsuario', usuario)
-			.then( function(response ){
-
-			      if( response.data == 0 ){
-				alert('Dados inválidos, preencha novamente');
-			      }
-			      else if( response.data == 1 ){
-				alert('Cadastro realizado com sucesso');
-			      }
-			      else{
-				alert('Nome de usuário já cadastrado');
-			      }
-
+			.then( function(response){
+			  if( response.data == 1 ){
+				alert('Usuario Cadastrado com sucesso');
+				window.location.href = 'view_login.html';
+			  }
+			  else if( response.data == 2 )
+				alert('Usuario já existe');
+			  else
+				alert('Dados inválidos');
+			  
+			  
 			});
 	    };
 
@@ -155,7 +153,7 @@
 			$http.post('http://localhost:3000/createProjeto', $scope.projeto )
 			.then(function (response){
 				atualizaTabelaProjetos_Usuario();
-				alert("Inserção com sucesso");
+				alert("Projeto inserido com sucesso");
 				$scope.projeto = {};
 			}
 			);
@@ -283,7 +281,7 @@
 		$scope.inserirTarefa = function(){
 			$http.post('http://localhost:3000/createTarefa', $scope.tarefa )
 			.then(function (response){
-				alert("Inserido com sucesso");
+				alert("Tarefa Inserida com sucesso");
 				$scope.tarefa = {};
 				atualizar_Tabela_Tarefas_Usuario();
 			}
@@ -297,7 +295,7 @@
 
 			$http.post('http://localhost:3000/createTarefa', $scope.tarefa )
 			.then(function (response){
-				alert("Inserido com sucesso");
+				alert("Tarefa Inserida com sucesso");
 				$scope.tarefa = {};
 				window.location.href='view_tarefas_subtarefas.html';
 			}
@@ -311,7 +309,7 @@
 
 			$http.post('http://localhost:3000/createTarefa', $scope.tarefa )
 			.then(function (response){
-				alert("Inserido com sucesso");
+				alert("Tarefa Inserida com sucesso");
 				$scope.tarefa = {};
 			}
 			);
@@ -454,7 +452,7 @@
 		$scope.inserirSubTarefa = function(){
 			$http.post('http://localhost:3000/createSubTarefa', $scope.subtarefa )
 			.then(function (response){
-				alert("Inserção com sucesso");
+				alert("Subtarefa inserida com sucesso");
 				atualiza_Tabela_Subtarefas_Tarefa_Usuario(); 
 				$scope.subtarefa = {};
 			});
@@ -467,7 +465,7 @@
 
 			$http.post('http://localhost:3000/createSubTarefa', $scope.subtarefa )
 			.then(function (response){
-				alert("Inserção com sucesso");
+				alert("Subtarefa inserida com sucesso");
 				atualiza_Tabela_Subtarefas_Tarefa_Usuario(); 
 				window.location.href='view_tarefas_subtarefas.html';
 			});
@@ -480,7 +478,7 @@
 
 			$http.post('http://localhost:3000/createSubTarefa', $scope.subtarefa )
 			.then(function (response){
-				alert("Inserção com sucesso");
+				alert("Subtarefa inserida com sucesso");
 				atualiza_Tabela_Subtarefas_Tarefa_Usuario(); 
 			});
 			
@@ -548,7 +546,7 @@
 
 		$scope.removerConta = function(id_usuario){
 
-			var resposta = confirm("Confirma a exclusão deste elemento?");
+			var resposta = confirm("Deseja realmente remover sua conta ?");
 
 			if (resposta == true){
 				$http.delete('http://localhost:3000/deleteUsuario/'+id_usuario)
@@ -558,12 +556,6 @@
 			}
 		};
 
-
-		$scope.cadastrarUsuario = function(){
-			$http.post('http://localhost:3000/cadastroUsuario', $scope.usuario )
-			.then(function (response){}
-			);
-		};
 
 
 		$scope.atualizarMinhaConta= function(){

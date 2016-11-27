@@ -282,14 +282,15 @@
 			<br/>Data Entrega<input type="text" class="form-control" ng-model="projeto.data_entrega"/>	
 			<br/>
 
-			<button type="button" class="btn btn-info" ng-click="inserirProjeto()"> Inserir </button>
+			<button type="button" class="btn btn-info" ng-click="inserirProjeto()"> Inserir Projeto </button>
 		     </div>
 		
 	
 		     <div id='Editar_Projeto' style="display:none;"  data-ng-init="consultaProjetos_Usuario()">
 			</br>
-			</br>Selecione o Projeto
+			</br>Nome do Projeto
 				<select name="select_Projeto" id="select_Projeto" class="form-control" ng-model="projeto.id_projeto">
+					<option value="">---Selecione um Projeto--</option>
 					<option 
 						ng-repeat="p in listaProjetos" 
 						value="{{p.id_projeto}}"> 
@@ -387,7 +388,7 @@
 					<br/>Data Entrega<input type="text" class="form-control" ng-model="tarefa.data_entrega"/>	
 					<br/>
 
-					<button type="button" class="btn btn-info" ng-click="inserirTarefa(tarefa.id_projeto)"> Inserir </button>
+					<button type="button" class="btn btn-info" ng-click="inserirTarefa(tarefa.id_projeto)"> Inserir Tarefa</button>
 					<button type="button" class="btn btn-info" ng-click="atualizarTarefa(tarefa.id_projeto)"> Atualizar </button>
 					<br/>
 					<br/>
@@ -397,8 +398,9 @@
          	 <div  id='Adicionar_Tarefa' style="display:none"  data-ng-init="consultaProjetos_Usuario()">
 
 				<h2> Nova Tarefa</h2>
-				<br/> Escolha o Projeto
+				<br/> Nome do Projeto
 				<select name="select_Projeto" id="select_Projeto" class="form-control" ng-model="projeto.id_projeto">
+					<option value="">---Selecione um Projeto---</option>
 					<option 
 						ng-repeat="p in listaProjetos" 
 						value="{{p.id_projeto}}"> 
@@ -424,6 +426,7 @@
 				<h2> Atualizar Tarefa</h2>
 				<br/> Escolha a Tarefa
 				<select name="select_Tarefa" id="select_Tarefa" class="form-control" ng-model="tarefa.id_tarefa">
+					<option value="">---Selecione uma Tarefa---</option>
 					<option 
 						ng-repeat="t in listaTarefas" 
 						value="{{t.id_tarefa}}"> 
@@ -513,6 +516,7 @@
 					<h2> Nova Subtarefa</h2>
 					<br/> Escolha a Tarefa 
 					<select  name="select_Tarefa" id="select_Tarefa" class="form-control" ng-model="tarefa.id_tarefa">
+						<option value="">---Selecione uma Tarefa---</option>
 						<option 
 							ng-repeat="t in listaTarefas" 
 							value="{{t.id_tarefa}}"> 
@@ -527,7 +531,7 @@
 					<br/>Data Entrega<input type="text" class="form-control" ng-model="subtarefa.data_entrega"/>	
 					<br/>
 
-					<button type="button" class="btn btn-info" ng-click="inserirSubTarefa3(tarefa.id_tarefa)"> Inserir </button>
+					<button type="button" class="btn btn-info" ng-click="inserirSubTarefa3(tarefa.id_tarefa)"> Inserir Subtarefa </button>
 					<br/>
 					<br/>
 					<br/>
@@ -536,8 +540,9 @@
          	 <div  id='Editar_SubTarefa' style="display:none"  data-ng-init="consultaSubTarefas_Usuario()">
 
 				<h2> Atualizar Subtarefa</h2>
-				<br/> Escolha a Subtarefa
+				<br/> Nome da Subtarefa
 				<select  class="form-control" ng-model="subtarefa.id_subtarefa">
+					<option value="">---Selecione uma Subtarefa---</option>
 					<option 
 						ng-repeat="st in listaSubTarefas" 
 						value="{{st.id_subtarefa}}"> 
@@ -545,11 +550,11 @@
 					</option> 
 				</select>
 
-				<br/>Novo Novo Nome da Subtarefa <input type="text" class="form-control" ng-model="subtarefa.nome"/>	
-				<br/>Nova Nova Prioridade <input type="number" class="form-control" ng-model="subtarefa.prioridade"/>	
-				<br/>Nova Nova Descrição <input type="text" class="form-control" ng-model="subtarefa.descricao"/>	
-				<br/>Nova Nova Data Início<input type="text" class="form-control" ng-model="subtarefa.data_inicio"/>	
-				<br/>Nova Nova Data Entrega<input type="text" class="form-control" ng-model="subtarefa.data_entrega"/>	
+				<br/>Novo Nome da Subtarefa <input type="text" class="form-control" ng-model="subtarefa.nome"/>	
+				<br/>Nova Prioridade <input type="number" class="form-control" ng-model="subtarefa.prioridade"/>	
+				<br/>Nova Descrição <input type="text" class="form-control" ng-model="subtarefa.descricao"/>	
+				<br/>Nova Data Início<input type="text" class="form-control" ng-model="subtarefa.data_inicio"/>	
+				<br/>Nova Data Entrega<input type="text" class="form-control" ng-model="subtarefa.data_entrega"/>	
 				<br/>
 
 				<button type="button" class="btn btn-info" ng-click="atualizarSubTarefa()"> Atualizar </button>
