@@ -553,6 +553,9 @@
 				.then(function (response){
 					atualizaTabela_MinhaConta();
 				});
+
+				window.location.href = 'view_home.html';
+			
 			}
 		};
 
