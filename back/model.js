@@ -36,7 +36,7 @@ app.use(expressValidator());
 // Configure o acesso ao banco 
 var config = {
   user: 'postgres', 
-  database: 'TISI', 
+  database: 'Organize', 
   password: '123456',
   port: 5432,
   max: 10, 
@@ -711,7 +711,7 @@ app.put('/updateTarefa', urlencodedParser, function(req, res) {
 
     var id = req.body.id_tarefa;
 
-    var data = { nome: req.body.descricao, descricao: req.body.descricao, data_inicio: req.body.data_inicio, data_entrega:req.body.data_entrega, prioridade: req.body.prioridade, fg_ativo: req.body.fg_ativo};
+    var data = { nome: req.body.nome, descricao: req.body.descricao, data_inicio: req.body.data_inicio, data_entrega:req.body.data_entrega, prioridade: req.body.prioridade, fg_ativo: req.body.fg_ativo};
 
     pool.connect(function(err, client, done) {
         // Handle connection errors

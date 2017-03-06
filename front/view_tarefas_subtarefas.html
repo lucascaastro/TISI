@@ -240,7 +240,6 @@
 					<td> {{tarefa.data_inicio}} </td> 
 					<td> {{tarefa.data_entrega}} </td> 
 					<td> 
-						<button type="button" class="btn btn-info btn-xs" ng-click="finalizarTarefa(tarefa.id_tarefa, tarefa.id_projeto)"> <span class="glyphicon glyphicon-ok"></span> Finalizar</button>
 						<button type="button" class="btn btn-info btn-xs"  ng-click="removerTarefa(tarefa.id_tarefa, tarefa.id_projeto)"><span class="glyphicon glyphicon-remove"></span>  Remover </button>
 						<button type="button" class="btn btn-info btn-xs"  ng-click="mostrarSubtarefas(tarefa.id_tarefa)"><span class="glyphicon glyphicon-option-vertical"></span> Mostrar Subtarefas </button>
 					</td>
@@ -254,6 +253,7 @@
 				<h2> Nova Tarefa</h2>
 				<br/> Nome do Projeto
 				<select name="select_Projeto" id="select_Projeto" class="form-control" ng-model="projeto.id_projeto">
+					<option value="">---Selecione um Projeto---</option>
 					<option 
 						ng-repeat="p in listaProjetos" 
 						value="{{p.id_projeto}}"> 
@@ -309,7 +309,6 @@
 					<td> {{subtarefa.data_inicio}} </td> 
 					<td> {{subtarefa.data_entrega}} </td> 
 					<td> 
-						<button type="button" class="btn btn-info btn-xs"  ng-click="finalizarSubTarefa(subtarefa.id_subtarefa)"> <span class="glyphicon glyphicon-ok"></span> Finalizar</button>
 						<button type="button" class="btn btn-info btn-xs"  ng-click="removerSubTarefa(subtarefa.id_subtarefa)"> <span class="glyphicon glyphicon-remove"></span> Remover </button>
 				</tr>
 			</table>
@@ -320,6 +319,7 @@
 					<h2> Nova Subtarefa</h2>
 					<br/> Nome da Tarefa 
 					<select  name="select_Tarefa" id="select_Tarefa" class="form-control" ng-model="tarefa.id_tarefa">
+						<option value="">---Selecione uma Tarefa---</option>
 						<option 
 							ng-repeat="t in listaTarefas" 
 							value="{{t.id_tarefa}}"> 
